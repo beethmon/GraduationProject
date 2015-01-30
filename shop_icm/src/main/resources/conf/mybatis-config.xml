@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<!-- mybatis设置 -->
+	<settings>
+		<setting name="cacheEnabled" value="true" />
+		<!-- 延迟加载的全局开关。当开启时，所有关联对象都会延迟加载。 -->
+		<!-- 特定关联关系中可通过设置fetchType属性来覆盖该项的开关状态。 -->
+		<setting name="lazyLoadingEnabled" value="true" />
+
+	</settings>
+	<!-- 使用短名 -->
+	<typeAliases>
+		<!-- <typeAliase alias="User" type="org.sl.shop.model.User"/> -->
+		<package name="org.sl.shop.model" />
+	</typeAliases>
+	<!-- 注册插件 -->
+	<plugins>
+		<plugin interceptor="org.sl.shop.util.PageInterceptor">
+			<property name="databaseType" value="Mysql" />
+		</plugin>
+	</plugins>
+	<!-- 声明mapping 有两种方式 其中个别声明有3种写法 分别为resource url class -->
+	<mappers>
+		<mapper resource="org/sl/shop/mapper/ResultMap.xml" />
+		<mapper resource="org/sl/shop/mapper/SupplierMapper.xml" />
+		<mapper resource="org/sl/shop/mapper/CommodityMapper.xml" />
+	</mappers>
+</configuration>

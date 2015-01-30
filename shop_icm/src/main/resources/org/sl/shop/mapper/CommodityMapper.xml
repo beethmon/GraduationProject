@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.sl.shop.mapper.CommodityMapper">
+
+	<!-- 按条件拼接sql语句查询 -->
+	<select id="getCommodity" parameterType="Commodity"
+		resultMap="org.sl.shop.mapper.ResultMap.commodityResultMap">
+		SELECT
+		commodity.cid,
+		commodity.cname,
+		commodity.sales_price,
+		commodity.about,
+		commodity.path,
+		commodity.state
+		FROM
+		commodity
+		<where>
+			<if test="cid != 0">
+				commodity.cid=#{cid}
+			</if>
+			<if test="state*state == 1">
+				AND commodity.state=#{state}
+			</if>
+			<if test="cname != null">
+				AND commodity.cname LIKE CONCAT(CONCAT('%',
+				#{cname}),'%')
+			</if>
+		</where>
+	</select>
+
+	<insert id="addCommodity" parameterType="Commodity">
+		INSERT INTO
+		commodity
+		(spid,cname,sales_price,about,path,state)
+		VALUES
+		(#{supplier.spid},#{cname},#{sales_price},#{about},#{path},#{state})
+	</insert>
+
+
+	<update id="updateCommodity" parameterType="Commodity">
+		UPDATE commodity
+		<set>
+			<if test="supplier!=null &amp;&amp; supplier.spid != 0">
+				spid = #{supplier.spid},
+			</if>
+			<if test="cname != null">
+				cname = #{cname},
+			</if>
+			<if test="sales_price != 0">
+				sales_price = #{sales_price},
+			</if>
+			<if test="about != null">
+				about = #{about},
+			</if>
+			<if test="path != null">
+				path = #{path},
+			</if>
+			<if test="state*state == 1">
+				state = #{state}
+			</if>
+		</set>
+		WHERE cid=#{cid}
+	</update>
+
+</mapper>

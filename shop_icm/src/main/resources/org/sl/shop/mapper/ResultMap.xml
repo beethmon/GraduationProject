@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.sl.shop.mapper.ResultMap">
+	<resultMap type="Commodity" id="commodityResultMap">
+		<id property="cid" column="cid" />
+		<result property="cname" column="cname" />
+		<result property="sales_price" column="sales_price" />
+		<result property="about" column="about" />
+		<result property="path" column="path" />
+		<result property="state" column="state" />
+	</resultMap>
+	
+	<resultMap type="purchaseOrderItem" id="purchaseOrderItemMap">
+		<id property="poiid" column="poiid" />
+		<result property="num" column="num" />
+		<result property="unitPrice" column="unitPrice" />
+		<result property="sum" column="sum" />
+		<result property="puDate" column="puDate"/>
+		<association property="comm" column="cid" javaType="Commodity"
+			resultMap="commodityResultMap" />
+	</resultMap>
+
+	<resultMap type="purchaseOrder" id="purchaseOrderMap">
+		<id property="poid" column="poid" />
+		<result property="bno" column="bno" />
+		<result property="poDate" column="poDate" />
+		<result property="sum" column="sum" />
+		<association property="supplier" column="spid" javaType="Supplier"
+			resultMap="supplierResultMap" />
+		<collection property="itmes" resultMap="purchaseOrderItemMap" />
+	</resultMap>
+
+	<resultMap type="Supplier" id="supplierResultMap">
+		<id property="spid" column="spid" />
+		<result property="spname" column="spname" />
+		<result property="address" column="address" />
+		<result property="contact" column="contact" />
+		<result property="about" column="about" />
+	</resultMap>
+
+	<resultMap type="Supplier" id="supplierAllResultMap">
+		<id property="spid" column="spid" />
+		<result property="spname" column="spname" />
+		<result property="address" column="address" />
+		<result property="contact" column="contact" />
+		<result property="about" column="about" />
+		<collection property="orders" resultMap="purchaseOrderMap" />
+	</resultMap>
+</mapper>

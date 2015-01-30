@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.sl.shop.mapper.SupplierMapper">
+	<select id="getSupplierAll" parameterType="Supplier"
+		resultMap="org.sl.shop.mapper.ResultMap.supplierAllResultMap">
+		SELECT
+		supplier.spid,
+		supplier.spname,
+		supplier.address,
+		supplier.contact,
+		supplier.about,
+		purchaseorder.poid,
+		purchaseorder.bno,
+		purchaseorder.spid,
+		purchaseorder.sum,
+		purchaseorder.poDate,
+		purchaseorderitem.poiid,
+		purchaseorderitem.poid,
+		purchaseorderitem.cid,
+		purchaseorderitem.num,
+		purchaseorderitem.unitPrice,
+		purchaseorderitem.sum,
+		purchaseorderitem.comm,
+		purchaseorderitem.puDate,
+		commodity.cid,
+		commodity.cname,
+		commodity.sales_price,
+		commodity.about,
+		commodity.path,
+		commodity.state
+		FROM
+		supplier
+		LEFT JOIN purchaseorder ON purchaseorder.spid = supplier.spid
+		LEFT JOIN purchaseorderitem ON purchaseorderitem.poid = purchaseorder.poid
+		LEFT JOIN commodity ON purchaseorderitem.cid = commodity.cid
+		<where>
+			<if test="spid != 0">
+				supplier.spid = #{spid}
+			</if>
+			<if test="spname != null">
+				AND supplier.spname LIKE CONCAT(CONCAT('%',
+				#{spname}),'%')
+			</if>
+			<if test="address != null">
+				AND supplier.address LIKE CONCAT(CONCAT('%',
+				#{address}),'%')
+			</if>
+			<if test="contact != contact">
+				AND supplier.contact LIKE CONCAT(CONCAT('%',
+				#{contact}),'%')
+			</if>
+			<if test="about != null">
+				AND supplier.about LIKE CONCAT(CONCAT('%',
+				#{about}),'%')
+			</if>
+		</where>
+	</select>
+	<select id="getSupplier" parameterType="Supplier"
+		resultMap="org.sl.shop.mapper.ResultMap.supplierResultMap">
+		SELECT
+		supplier.spid,
+		supplier.spname,
+		supplier.address,
+		supplier.contact,
+		supplier.about
+		FROM
+		supplier
+		<where>
+			<if test="spid != 0">
+				supplier.spid = #{spid}
+			</if>
+			<if test="spname != null">
+				AND supplier.spname LIKE CONCAT(CONCAT('%',
+				#{spname}),'%')
+			</if>
+			<if test="address != null">
+				AND supplier.address LIKE CONCAT(CONCAT('%',
+				#{address}),'%')
+			</if>
+			<if test="contact != contact">
+				AND supplier.contact LIKE CONCAT(CONCAT('%',
+				#{contact}),'%')
+			</if>
+			<if test="about != null">
+				AND supplier.about LIKE CONCAT(CONCAT('%',
+				#{about}),'%')
+			</if>
+		</where>
+	</select>
+	<insert id="addSupplier" parameterType="Supplier">
+		INSERT INTO
+		supplier
+		(spname,address,contact,about)
+		VALUES
+		(#{spname},#{address},#{contact},#{about})
+	</insert>
+	<update id="updateSupplier" parameterType="Supplier">
+		UPDATE supplier
+		<set>
+			<if test="spname != null">
+				spname = #{spname},
+			</if>
+			<if test="address != null">
+				address = #{address},
+			</if>
+			<if test="contact != null">
+				contact = #{contact},
+			</if>
+			<if test="about != null">
+				about = #{about}
+			</if>
+		</set>
+	</update>
+</mapper>
