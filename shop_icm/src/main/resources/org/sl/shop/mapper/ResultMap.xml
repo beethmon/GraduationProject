@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="org.sl.shop.mapper.ResultMap">
+	<!-- ResultMap 商品 -->
 	<resultMap type="Commodity" id="commodityResultMap">
 		<id property="cid" column="cid" />
 		<result property="cname" column="cname" />
@@ -9,27 +10,84 @@
 		<result property="path" column="path" />
 		<result property="state" column="state" />
 	</resultMap>
+
+	<!-- ============================================================ -->
 	
-	<resultMap type="purchaseOrderItem" id="purchaseOrderItemMap">
+	<!-- ResultMap 库存 -->
+	<resultMap type="Stock" id="stockResultMap">
+		<result property="num" column="num" />
+		<association property="comm" column="cid" javaType="Commodity"
+			resultMap="commodityResultMap" />
+	</resultMap>
+	
+	<!-- ============================================================ -->
+
+	<!-- ResultMap 销售单详细 -->
+	<resultMap type="SalesOrderItem" id="salesOrderItemResultMap">
+		<id property="soiid" column="soiid" />
+		<result property="num" column="num" />
+		<result property="unitPrice" column="unitPrice" />
+		<result property="sum" column="sum" />
+		<result property="soiDate" column="soiDate" />
+		<association property="comm" column="cid" javaType="Commodity"
+			resultMap="commodityResultMap" />
+		<association property="salesOrder" column="soid" javaType="SalesOrder"
+			resultMap="salesOrderResultMap" />
+	</resultMap>
+
+	<!-- ============================================================ -->
+
+	<!-- ResultMap 销售单详尽版 -->
+	<resultMap type="SalesOrder" id="salesOrderAllResultMap">
+		<collection property="items" resultMap="salesOrderItemResultMap" />
+	</resultMap>
+
+
+	<!-- ResultMap 销售单 -->
+	<resultMap type="SalesOrder" id="salesOrderResultMap">
+		<id property="soid" column="soid" />
+		<result property="bno" column="bno" />
+		<result property="soDate" column="soDate" />
+		<result property="sum" column="sum" />
+	</resultMap>
+
+	<!-- ============================================================ -->
+
+	<!-- ResultMap 进货订单详细 -->
+	<resultMap type="PurchaseOrderItem" id="purchaseOrderItemResultMap">
 		<id property="poiid" column="poiid" />
 		<result property="num" column="num" />
 		<result property="unitPrice" column="unitPrice" />
 		<result property="sum" column="sum" />
-		<result property="puDate" column="puDate"/>
+		<result property="poiDate" column="poiDate" />
 		<association property="comm" column="cid" javaType="Commodity"
 			resultMap="commodityResultMap" />
+		<association property="purchaseOrder" column="poid"
+			javaType="PurchaseOrder" resultMap="purchaseOrderResultMap" />
 	</resultMap>
 
-	<resultMap type="purchaseOrder" id="purchaseOrderMap">
+	<!-- ============================================================ -->
+
+	<!-- ResultMap 进货订单详尽版 -->
+	<resultMap type="PurchaseOrder" id="purchaseOrderAllResultMap"
+		extends="purchaseOrderResultMap">
+		<collection property="itmes" resultMap="purchaseOrderItemResultMap" />
+	</resultMap>
+
+
+	<!-- ResultMap 进货订单 -->
+	<resultMap type="PurchaseOrder" id="purchaseOrderResultMap">
 		<id property="poid" column="poid" />
 		<result property="bno" column="bno" />
 		<result property="poDate" column="poDate" />
 		<result property="sum" column="sum" />
 		<association property="supplier" column="spid" javaType="Supplier"
 			resultMap="supplierResultMap" />
-		<collection property="itmes" resultMap="purchaseOrderItemMap" />
 	</resultMap>
 
+	<!-- ============================================================ -->
+
+	<!-- ResultMap 供货商 -->
 	<resultMap type="Supplier" id="supplierResultMap">
 		<id property="spid" column="spid" />
 		<result property="spname" column="spname" />
@@ -38,12 +96,12 @@
 		<result property="about" column="about" />
 	</resultMap>
 
-	<resultMap type="Supplier" id="supplierAllResultMap">
-		<id property="spid" column="spid" />
-		<result property="spname" column="spname" />
-		<result property="address" column="address" />
-		<result property="contact" column="contact" />
-		<result property="about" column="about" />
-		<collection property="orders" resultMap="purchaseOrderMap" />
+
+	<!-- ResultMap 供货商详尽版 -->
+	<resultMap type="Supplier" id="supplierAllResultMap" extends="supplierResultMap">
+		<collection property="orders" resultMap="purchaseOrderAllResultMap" />
 	</resultMap>
+
+	<!-- ============================================================ -->
+
 </mapper>

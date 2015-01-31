@@ -14,7 +14,7 @@ public class PurchaseOrder {
 	private int poid;
 	private Supplier supplier;
 	private String bno;
-	private List<PurchaseOrderItem> itmes;
+	private List<PurchaseOrderItem> items;
 	private Date poDate;
 	private BigDecimal sum;
 
@@ -43,11 +43,11 @@ public class PurchaseOrder {
 	}
 
 	public List<PurchaseOrderItem> getItmes() {
-		return itmes;
+		return items;
 	}
 
-	public void setItmes(List<PurchaseOrderItem> itmes) {
-		this.itmes = itmes;
+	public void setItmes(List<PurchaseOrderItem> items) {
+		this.items = items;
 	}
 
 	public Date getPoDate() {

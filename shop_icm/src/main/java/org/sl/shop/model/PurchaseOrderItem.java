@@ -10,7 +10,7 @@ public class PurchaseOrderItem {
 	private BigDecimal num;
 	private BigDecimal unitPrice;
 	private BigDecimal sum;
-	private Date puDate;
+	private Date poiDate;
 
 	public int getPoiid() {
 		return poiid;
@@ -65,11 +65,11 @@ public class PurchaseOrderItem {
 	}
 
 	public Date getPuDate() {
-		return puDate;
+		return poiDate;
 	}
 
-	public void setPuDate(Date puDate) {
-		this.puDate = puDate;
+	public void setPuDate(Date poiDate) {
+		this.poiDate = poiDate;
 	}
 
 }

@@ -13,8 +13,8 @@ import java.util.List;
 public class SalesOrder {
 	int soid;
 	private String bno;
-	private List<SalesOrderItem> itmes;
-	private Date poDate;
+	private List<SalesOrderItem> items;
+	private Date soDate;
 	private BigDecimal sum;
 
 	public int getSoid() {
@@ -34,19 +34,19 @@ public class SalesOrder {
 	}
 
 	public List<SalesOrderItem> getItmes() {
-		return itmes;
+		return items;
 	}
 
-	public void setItmes(List<SalesOrderItem> itmes) {
-		this.itmes = itmes;
+	public void setItmes(List<SalesOrderItem> items) {
+		this.items = items;
 	}
 
 	public Date getPoDate() {
-		return poDate;
+		return soDate;
 	}
 
-	public void setPoDate(Date poDate) {
-		this.poDate = poDate;
+	public void setPoDate(Date soDate) {
+		this.soDate = soDate;
 	}
 
 	public BigDecimal getSum() {

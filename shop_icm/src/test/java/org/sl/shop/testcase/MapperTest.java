@@ -42,6 +42,8 @@ public class MapperTest extends SpringUnitTestBase{
 			System.out.println(tmp);
 		}
 		Supplier st = list.get(0);
+		Supplier st2 = st.getOrders().get(0).getSupplier();
+		System.out.println("////"+st.hashCode()+"::"+st2.hashCode());
 		System.out.println("=============================================");
 	}
 	

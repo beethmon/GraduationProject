@@ -10,7 +10,7 @@ public class SalesOrderItem {
 	private BigDecimal num;
 	private BigDecimal unitPrice;
 	private BigDecimal sum;
-	private Date puDate;
+	private Date soiDate;
 
 	public int getSoiid() {
 		return soiid;
@@ -62,6 +62,14 @@ public class SalesOrderItem {
 
 	public void setSum(BigDecimal sum) {
 		this.sum = sum;
+	}
+
+	public Date getSoiDate() {
+		return soiDate;
+	}
+
+	public void setSoiDate(Date soiDate) {
+		this.soiDate = soiDate;
 	}
 
 }
