@@ -12,4 +12,6 @@ public interface PurchaseOrderMapper {
 	public boolean deletePurchaseOrder(PurchaseOrder purchaseOrder);
 
 	public List<PurchaseOrder> getPurchaseOrder(PurchaseOrder purchaseOrder);
+
+	public List<PurchaseOrder> getPurchaseOrderAll(PurchaseOrder purchaseOrder);
 }

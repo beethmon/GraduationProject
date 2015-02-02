@@ -25,7 +25,7 @@
 		</where>
 	</sql>
 	<select id="getPurchaseOrderAll" parameterType="PurchaseOrder"
-		resultMap="sl.shop.mapper.ResultMap.purchaseOrderAllResultMap">
+		resultMap="org.sl.shop.mapper.ResultMap.purchaseOrderAllResultMap">
 		SELECT
 		purchaseorder.poid,
 		purchaseorder.bno,
@@ -57,7 +57,7 @@
 	</select>
 
 	<select id="getPurchaserOrder" parameterType="PurchaseOrder"
-		resultMap="sl.shop.mapper.ResultMap.purchaseOrderResultMap">
+		resultMap="org.sl.shop.mapper.ResultMap.purchaseOrderResultMap">
 		SELECT
 		purchaseorder.poid,
 		purchaseorder.bno,
@@ -82,17 +82,16 @@
 		UPDATE purchaseorder
 		<set>
 			<if test="sum != 0">
-				sum =#{sum}
+				sum =#{sum},
 			</if>
 			<if test="state ! = 0">
 				state = #{state}
 			</if>
+			<if test="poDate != null">
+				poDate = #{poDate}
+			</if>
 		</set>
 		WHERE poid = #{poid}
 	</update>
-	<delete id="deletePurchaseOrder" parameterType="PurchaseOrder">
-		DELETE FROM
-		purchaseorder where poid = #{poid}
-	</delete>
 
 </mapper>

@@ -27,5 +27,7 @@
 		<mapper resource="org/sl/shop/mapper/ResultMap.xml" />
 		<mapper resource="org/sl/shop/mapper/SupplierMapper.xml" />
 		<mapper resource="org/sl/shop/mapper/CommodityMapper.xml" />
+		<mapper resource="org/sl/shop/mapper/PurchaseOrderMapper.xml" />
+		<mapper resource="org/sl/shop/mapper/PurchaseOrderItemMapper.xml" />
 	</mappers>
 </configuration>
