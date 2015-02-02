@@ -21,5 +21,4 @@ public class Stock {
 		this.num = num;
 	}
 	
-	
 }

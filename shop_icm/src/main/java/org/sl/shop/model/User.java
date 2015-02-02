@@ -7,10 +7,19 @@ package org.sl.shop.model;
  *
  */
 public class User {
+	
+	public static final int NONE = 0;
+	public static final int SALES = 1;
+	public static final int PURCHASE = 2;
+	public static final int MANAGE = 4;
+	
 	private int uid;
 	private String username;
 	private String password;
-	private String limit;
+	/**
+	 * 取值0-7
+	 */
+	private int limit;
 	private Staff staff;
 
 	public int getUid() {
@@ -37,11 +46,11 @@ public class User {
 		this.password = password;
 	}
 
-	public String getLimit() {
+	public int getLimit() {
 		return limit;
 	}
 
-	public void setLimit(String limit) {
+	public void setLimit(int limit) {
 		this.limit = limit;
 	}
 	

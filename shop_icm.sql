@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50619
 File Encoding         : 65001
 
-Date: 2015-01-30 21:26:45
+Date: 2015-02-02 13:40:35
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -57,13 +57,28 @@ CREATE TABLE `purchaseorderitem` (
   `unitPrice` decimal(20,2) DEFAULT NULL,
   `sum` decimal(20,2) DEFAULT NULL,
   `comm` tinyblob,
-  `puDate` datetime DEFAULT NULL,
+  `poiDate` datetime DEFAULT NULL,
   PRIMARY KEY (`poiid`),
   KEY `poiFromComm` (`cid`),
   KEY `poi2po` (`poid`),
   CONSTRAINT `poi2po` FOREIGN KEY (`poid`) REFERENCES `purchaseorder` (`poid`),
   CONSTRAINT `poiFromComm` FOREIGN KEY (`cid`) REFERENCES `commodity` (`cid`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Table structure for refund
+-- ----------------------------
+DROP TABLE IF EXISTS `refund`;
+CREATE TABLE `refund` (
+  `rid` int(11) NOT NULL,
+  `cid` int(11) NOT NULL,
+  `num` decimal(10,2) DEFAULT NULL,
+  `refundDate` datetime DEFAULT NULL,
+  `refund` decimal(20,2) DEFAULT NULL,
+  PRIMARY KEY (`rid`),
+  KEY `refundComm` (`cid`),
+  CONSTRAINT `refundComm` FOREIGN KEY (`cid`) REFERENCES `commodity` (`cid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for salesorder
@@ -88,6 +103,7 @@ CREATE TABLE `salesorderitem` (
   `num` int(11) DEFAULT NULL,
   `unitPrice` decimal(10,2) DEFAULT NULL,
   `sum` decimal(20,2) DEFAULT NULL,
+  `soiDate` datetime DEFAULT NULL,
   PRIMARY KEY (`soiid`),
   KEY `soiFromComm` (`cid`),
   KEY `soi2so` (`soid`),
@@ -101,13 +117,16 @@ CREATE TABLE `salesorderitem` (
 DROP TABLE IF EXISTS `staff`;
 CREATE TABLE `staff` (
   `staffid` int(11) NOT NULL,
+  `uid` int(11) DEFAULT NULL,
   `sname` varchar(255) NOT NULL,
   `gender` varchar(2) NOT NULL,
   `birth` date DEFAULT NULL,
   `post` int(10) DEFAULT NULL,
   `service` tinyint(4) DEFAULT NULL,
   `salary` decimal(10,0) DEFAULT NULL,
-  PRIMARY KEY (`staffid`)
+  PRIMARY KEY (`staffid`),
+  KEY `u2s` (`uid`),
+  CONSTRAINT `u2s` FOREIGN KEY (`uid`) REFERENCES `tuser` (`uid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
@@ -139,9 +158,12 @@ CREATE TABLE `supplier` (
 -- ----------------------------
 DROP TABLE IF EXISTS `tuser`;
 CREATE TABLE `tuser` (
-  `uid` int(10) NOT NULL,
+  `uid` int(10) NOT NULL AUTO_INCREMENT,
   `username` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL,
-  `limit` int(10) DEFAULT NULL,
-  PRIMARY KEY (`uid`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `limit` tinyint(8) unsigned DEFAULT NULL,
+  `staffid` int(11) DEFAULT NULL,
+  PRIMARY KEY (`uid`),
+  KEY `userstaff` (`staffid`),
+  CONSTRAINT `userstaff` FOREIGN KEY (`staffid`) REFERENCES `staff` (`staffid`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;

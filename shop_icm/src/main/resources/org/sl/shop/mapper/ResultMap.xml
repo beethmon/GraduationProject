@@ -12,14 +12,14 @@
 	</resultMap>
 
 	<!-- ============================================================ -->
-	
+
 	<!-- ResultMap 库存 -->
 	<resultMap type="Stock" id="stockResultMap">
 		<result property="num" column="num" />
 		<association property="comm" column="cid" javaType="Commodity"
 			resultMap="commodityResultMap" />
 	</resultMap>
-	
+
 	<!-- ============================================================ -->
 
 	<!-- ResultMap 销售单详细 -->
@@ -104,4 +104,35 @@
 
 	<!-- ============================================================ -->
 
+	<!-- ResultMap 退货表 -->
+	<resultMap type="Refund" id="refundResultMap">
+		<id property="rid" column="rid" />
+		<result property="num" column="num" />
+		<result property="refundDate" column="refundDate" />
+		<result property="refund" column="refund" />
+		<association property="comm" column="cid" javaType="Commodity"
+			resultMap="commodityResultMap" />
+	</resultMap>
+
+	<!-- ============================================================ -->
+
+	<!-- ResultMap 用户 -->
+	<resultMap type="User" id="userResultMap">
+		<id property="uid" column="uid" />
+		<result property="username" column="username" />
+		<result property="password" column="password" />
+		<result property="limit" column="limit" />
+		<association property="staff" column="uid" javaType="Staff"
+			resultMap="staffResultMap" />
+	</resultMap>
+
+	<resultMap type="Staff" id="staffResultMap">
+		<id property="staffId" column="staffid" />
+		<result property="sname" column="sname" />
+		<result property="gender" column="gender" />
+		<result property="birth" column="birth" />
+		<result property="post" column="post" />
+		<result property="isService" column="isService" />
+		<result property="salary" column="salary" />
+	</resultMap>
 </mapper>

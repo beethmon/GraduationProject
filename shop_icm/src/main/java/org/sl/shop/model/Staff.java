@@ -1,6 +1,7 @@
 package org.sl.shop.model;
 
 import java.math.BigDecimal;
+import java.util.Date;
 
 /**
  * 员工
@@ -15,7 +16,7 @@ public class Staff {
 	private int staffId;
 	private String sname;
 	private String gender;
-	private String birth;
+	private Date birth;
 	private String post;
 	private int isService;
 	private BigDecimal salary;
@@ -44,11 +45,11 @@ public class Staff {
 		this.gender = gender;
 	}
 
-	public String getBirth() {
+	public Date getBirth() {
 		return birth;
 	}
 
-	public void setBirth(String birth) {
+	public void setBirth(Date birth) {
 		this.birth = birth;
 	}
 
