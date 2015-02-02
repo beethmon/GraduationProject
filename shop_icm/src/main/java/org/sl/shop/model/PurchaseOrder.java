@@ -11,12 +11,19 @@ import java.util.List;
  *
  */
 public class PurchaseOrder {
+
+	public static final int SUCCESS = 1;
+	public static final int FALI = -1;
+	public static final int WATTING = 0;
+
 	private int poid;
 	private Supplier supplier;
 	private String bno;
 	private List<PurchaseOrderItem> items;
 	private Date poDate;
 	private BigDecimal sum;
+	private int state;
+	private boolean wait;
 
 	public int getPoid() {
 		return poid;
@@ -42,11 +49,11 @@ public class PurchaseOrder {
 		this.bno = bno;
 	}
 
-	public List<PurchaseOrderItem> getItmes() {
+	public List<PurchaseOrderItem> getItems() {
 		return items;
 	}
 
-	public void setItmes(List<PurchaseOrderItem> items) {
+	public void setItems(List<PurchaseOrderItem> items) {
 		this.items = items;
 	}
 
@@ -65,5 +72,24 @@ public class PurchaseOrder {
 	public void setSum(BigDecimal sum) {
 		this.sum = sum;
 	}
+
+	public int getState() {
+		return state;
+	}
+
+	public void setState(int state) {
+		this.state = state;
+	}
+
+	public boolean isWait() {
+		return wait;
+	}
+
+	public void setWait(boolean wait) {
+		this.wait = wait;
+	}
+
+	
+	
 
 }

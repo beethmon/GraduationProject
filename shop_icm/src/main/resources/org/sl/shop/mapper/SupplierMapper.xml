@@ -1,6 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="org.sl.shop.mapper.SupplierMapper">
+	<sql id="whereConditions">
+		<where>
+			<if test="spid != 0">
+				supplier.spid = #{spid}
+			</if>
+			<if test="spname != null">
+				AND supplier.spname LIKE CONCAT(CONCAT('%',
+				#{spname}),'%')
+			</if>
+			<if test="address != null">
+				AND supplier.address LIKE CONCAT(CONCAT('%',
+				#{address}),'%')
+			</if>
+			<if test="contact != contact">
+				AND supplier.contact LIKE CONCAT(CONCAT('%',
+				#{contact}),'%')
+			</if>
+			<if test="about != null">
+				AND supplier.about LIKE CONCAT(CONCAT('%',
+				#{about}),'%')
+			</if>
+		</where>
+	</sql>
 	<select id="getSupplierAll" parameterType="Supplier"
 		resultMap="org.sl.shop.mapper.ResultMap.supplierAllResultMap">
 		SELECT
@@ -14,6 +37,7 @@
 		purchaseorder.spid,
 		purchaseorder.sum,
 		purchaseorder.poDate,
+		purchaseorder.state,
 		purchaseorderitem.poiid,
 		purchaseorderitem.poid,
 		purchaseorderitem.cid,
@@ -21,7 +45,7 @@
 		purchaseorderitem.unitPrice,
 		purchaseorderitem.sum,
 		purchaseorderitem.comm,
-		purchaseorderitem.puDate,
+		purchaseorderitem.poiDate,
 		commodity.cid,
 		commodity.cname,
 		commodity.sales_price,
@@ -33,27 +57,7 @@
 		LEFT JOIN purchaseorder ON purchaseorder.spid = supplier.spid
 		LEFT JOIN purchaseorderitem ON purchaseorderitem.poid = purchaseorder.poid
 		LEFT JOIN commodity ON purchaseorderitem.cid = commodity.cid
-		<where>
-			<if test="spid != 0">
-				supplier.spid = #{spid}
-			</if>
-			<if test="spname != null">
-				AND supplier.spname LIKE CONCAT(CONCAT('%',
-				#{spname}),'%')
-			</if>
-			<if test="address != null">
-				AND supplier.address LIKE CONCAT(CONCAT('%',
-				#{address}),'%')
-			</if>
-			<if test="contact != contact">
-				AND supplier.contact LIKE CONCAT(CONCAT('%',
-				#{contact}),'%')
-			</if>
-			<if test="about != null">
-				AND supplier.about LIKE CONCAT(CONCAT('%',
-				#{about}),'%')
-			</if>
-		</where>
+		<include refid="whereConditions"/>
 	</select>
 	<select id="getSupplier" parameterType="Supplier"
 		resultMap="org.sl.shop.mapper.ResultMap.supplierResultMap">
@@ -65,27 +69,7 @@
 		supplier.about
 		FROM
 		supplier
-		<where>
-			<if test="spid != 0">
-				supplier.spid = #{spid}
-			</if>
-			<if test="spname != null">
-				AND supplier.spname LIKE CONCAT(CONCAT('%',
-				#{spname}),'%')
-			</if>
-			<if test="address != null">
-				AND supplier.address LIKE CONCAT(CONCAT('%',
-				#{address}),'%')
-			</if>
-			<if test="contact != contact">
-				AND supplier.contact LIKE CONCAT(CONCAT('%',
-				#{contact}),'%')
-			</if>
-			<if test="about != null">
-				AND supplier.about LIKE CONCAT(CONCAT('%',
-				#{about}),'%')
-			</if>
-		</where>
+		<include refid="whereConditions"/>
 	</select>
 	<insert id="addSupplier" parameterType="Supplier">
 		INSERT INTO
@@ -110,5 +94,6 @@
 				about = #{about}
 			</if>
 		</set>
+		WHERE spid = #{spid}
 	</update>
 </mapper>

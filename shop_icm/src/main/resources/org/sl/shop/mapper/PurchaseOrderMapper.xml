@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.sl.shop.mapper.PurchaseOrderMapper">
+	<sql id="whereConditions">
+		<where>
+			<if test="poid != 0">
+				purchaseorder.poid = #{poid},
+			</if>
+			<if test="supplier != null">
+				AND purchaseorder.pid = #{supplier.spid},
+			</if>
+			<if test="bno != null">
+				AND purchaseorder.bno = #{bno},
+			</if>
+			<if test="sum != 0">
+				AND purchaseorder.sum =#{sum}
+			</if>
+			<if test="state*state ==1">
+				AND purchaseorder.state = #{state}
+			</if>
+			<if test="wait == true">
+				AND purchaseorder.state = 0
+			</if>
+
+		</where>
+	</sql>
+	<select id="getPurchaseOrderAll" parameterType="PurchaseOrder"
+		resultMap="sl.shop.mapper.ResultMap.purchaseOrderAllResultMap">
+		SELECT
+		purchaseorder.poid,
+		purchaseorder.bno,
+		purchaseorder.spid,
+		purchaseorder.sum,
+		purchaseorder.poDate,
+		purchaseorder.state,
+		purchaseorderitem.poiid,
+		purchaseorderitem.poid,
+		purchaseorderitem.cid,
+		purchaseorderitem.num,
+		purchaseorderitem.unitPrice,
+		purchaseorderitem.sum,
+		purchaseorderitem.comm,
+		purchaseorderitem.poiDate,
+		commodity.cid,
+		commodity.cname,
+		commodity.sales_price,
+		commodity.about,
+		commodity.path,
+		commodity.state
+		FROM
+		purchaseorder
+		INNER JOIN purchaseorderitem ON
+		purchaseorderitem.poid = purchaseorder.poid
+		INNER JOIN commodity ON
+		purchaseorderitem.cid = commodity.cid
+		<include refid="whereConditions" />
+	</select>
+
+	<select id="getPurchaserOrder" parameterType="PurchaseOrder"
+		resultMap="sl.shop.mapper.ResultMap.purchaseOrderResultMap">
+		SELECT
+		purchaseorder.poid,
+		purchaseorder.bno,
+		purchaseorder.spid,
+		purchaseorder.sum,
+		purchaseorder.poDate,
+		purchaseorder.state
+		FROM
+		purchaseorder
+		<include refid="whereConditions" />
+	</select>
+
+	<insert id="addPurchaseOrder" parameterType="PurchaseOrder">
+		INSERT INTO
+		purchaseorder
+		(bno,spid,sum,poDate,state)
+		VALUES
+		(#{bno},#{supplier.spid},#{sum},#{poDate},#{state})
+	</insert>
+
+	<update id="updatePurchaseOrder" parameterType="PurchaseOrder">
+		UPDATE purchaseorder
+		<set>
+			<if test="sum != 0">
+				sum =#{sum}
+			</if>
+			<if test="state ! = 0">
+				state = #{state}
+			</if>
+		</set>
+		WHERE poid = #{poid}
+	</update>
+	<delete id="deletePurchaseOrder" parameterType="PurchaseOrder">
+		DELETE FROM
+		purchaseorder where poid = #{poid}
+	</delete>
+
+</mapper>
