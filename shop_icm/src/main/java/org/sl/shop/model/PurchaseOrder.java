@@ -4,13 +4,15 @@ import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
+import org.sl.shop.util.QueryExtra;
+
 /**
  * 采购单
  * 
  * @author godoway
  *
  */
-public class PurchaseOrder {
+public class PurchaseOrder extends QueryExtra {
 
 	public static final int SUCCESS = 1;
 	public static final int FALI = -1;
@@ -88,8 +90,5 @@ public class PurchaseOrder {
 	public void setWait(boolean wait) {
 		this.wait = wait;
 	}
-
-	
-	
 
 }

@@ -25,7 +25,9 @@
 				AND commodity.cname LIKE CONCAT(CONCAT('%',
 				#{cname}),'%')
 			</if>
+			<include refid="org.sl.shop.mapper.extra.range"/>
 		</where>
+		<include refid="org.sl.shop.mapper.extra.orderby"/>
 	</select>
 
 	<insert id="addCommodity" parameterType="Commodity">

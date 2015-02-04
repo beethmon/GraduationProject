@@ -44,7 +44,6 @@
 		purchaseorderitem.num,
 		purchaseorderitem.unitPrice,
 		purchaseorderitem.sum,
-		purchaseorderitem.comm,
 		purchaseorderitem.poiDate,
 		commodity.cid,
 		commodity.cname,

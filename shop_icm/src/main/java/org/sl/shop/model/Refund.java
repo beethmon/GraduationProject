@@ -3,7 +3,9 @@ package org.sl.shop.model;
 import java.math.BigDecimal;
 import java.util.Date;
 
-public class Refund {
+import org.sl.shop.util.QueryExtra;
+
+public class Refund extends QueryExtra {
 	private int rid;
 	private Commodity comm;
 	private BigDecimal num;

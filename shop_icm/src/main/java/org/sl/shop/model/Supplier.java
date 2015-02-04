@@ -2,13 +2,15 @@ package org.sl.shop.model;
 
 import java.util.List;
 
+import org.sl.shop.util.QueryExtra;
+
 /**
  * 供货商
  * 
  * @author godoway
  *
  */
-public class Supplier {
+public class Supplier extends QueryExtra {
 	private int spid;
 	private String spname;
 	private String address;

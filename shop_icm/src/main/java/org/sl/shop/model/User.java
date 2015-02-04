@@ -1,12 +1,14 @@
 package org.sl.shop.model;
 
+import org.sl.shop.util.QueryExtra;
+
 /**
  * 用户
  * 
  * @author godoway
  *
  */
-public class User {
+public class User extends QueryExtra {
 	
 	public static final int NONE = 0;
 	public static final int SALES = 1;

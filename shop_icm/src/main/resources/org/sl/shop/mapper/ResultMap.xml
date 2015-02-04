@@ -71,7 +71,7 @@
 	<!-- ResultMap 进货订单详尽版 -->
 	<resultMap type="PurchaseOrder" id="purchaseOrderAllResultMap"
 		extends="purchaseOrderResultMap">
-		<collection property="itmes" resultMap="purchaseOrderItemResultMap" />
+		<collection property="items" resultMap="purchaseOrderItemResultMap" />
 	</resultMap>
 
 

@@ -4,13 +4,15 @@ import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
+import org.sl.shop.util.QueryExtra;
+
 /**
  * 销售单
  * 
  * @author godoway
  *
  */
-public class SalesOrder {
+public class SalesOrder extends QueryExtra {
 	int soid;
 	private String bno;
 	private List<SalesOrderItem> items;

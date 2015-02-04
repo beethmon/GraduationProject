@@ -3,7 +3,9 @@ package org.sl.shop.model;
 import java.math.BigDecimal;
 import java.util.Date;
 
-public class PurchaseOrderItem {
+import org.sl.shop.util.QueryExtra;
+
+public class PurchaseOrderItem extends QueryExtra {
 	private int poiid;
 	private PurchaseOrder purchaseOrder;
 	private Commodity comm;

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.sl.shop.mapper.extra">
+	<sql id="range">
+		<if test="queryRange != null">
+			<if test="queryRange.prefix != null">
+			<![CDATA[AND ${queryRange.colname} >= #{queryRange.prefix}]]>
+			</if>
+			<if test="queryRange.suffix != null">
+			<![CDATA[AND ${queryRange.colname} <= #{queryRange.suffix}]]>
+			</if>
+		</if>
+	</sql>
+	<sql id="groupby">
+		<if test="groupby != null">
+			GROUP BY
+			<foreach collection="groupby" separator=",">${groupby}</foreach>
+		</if>
+	</sql>
+	<sql id="orderby">
+		<if test="orderby != null">
+			ORDER BY ${orderby.colname} ${orderby.orderby}
+		</if>
+	</sql>
+	<sql id="limit">
+		<if test="limit != null">
+			LIMIT #{limit.index},#{limit.offset}
+		</if>
+	</sql>
+</mapper>

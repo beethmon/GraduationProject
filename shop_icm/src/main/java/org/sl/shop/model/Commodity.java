@@ -2,13 +2,15 @@ package org.sl.shop.model;
 
 import java.math.BigDecimal;
 
+import org.sl.shop.util.QueryExtra;
+
 /**
  * 产品
  * 
  * @author godoway
  *
  */
-public class Commodity {
+public class Commodity extends QueryExtra{
 	public static final int ACTIVE = 1;
 	public static final int NEGATIVE = -1;
 
