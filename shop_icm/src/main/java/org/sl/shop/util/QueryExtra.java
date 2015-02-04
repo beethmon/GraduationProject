@@ -2,9 +2,16 @@ package org.sl.shop.util;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+@JsonIgnoreProperties
 public class QueryExtra {
+	@JsonIgnore
 	private Orderby orderby;
+	@JsonIgnore
 	private Range queryRange;
+	@JsonIgnore
 	private List<String> groupby;
 
 	public Orderby getOrderby() {

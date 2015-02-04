@@ -3,7 +3,7 @@
 <mapper namespace="org.sl.shop.mapper.PurchaseOrderMapper">
 	<sql id="whereConditions">
 		<where>
-			<if test="poid != 0">
+			<if test="poid != null and poid != 0">
 				purchaseorder.poid = #{poid},
 			</if>
 			<if test="supplier != null">

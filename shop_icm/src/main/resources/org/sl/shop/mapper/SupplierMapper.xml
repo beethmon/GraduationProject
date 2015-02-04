@@ -3,10 +3,10 @@
 <mapper namespace="org.sl.shop.mapper.SupplierMapper">
 	<sql id="whereConditions">
 		<where>
-			<if test="spid != 0">
+			<if test="spid != null and spid != 0  ">
 				supplier.spid = #{spid}
 			</if>
-			<if test="spname != null">
+			<if test="spname != null and spname != ''">
 				AND supplier.spname LIKE CONCAT(CONCAT('%',
 				#{spname}),'%')
 			</if>

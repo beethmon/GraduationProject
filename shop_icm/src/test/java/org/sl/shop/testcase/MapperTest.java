@@ -29,7 +29,7 @@ public class MapperTest extends SpringUnitTestBase{
 		comm.setSales_price(2.5);
 		comm.setCname("雪碧");
 		comm.setState(Commodity.ACTIVE);
-		List<Commodity> list = cMapper.getCommodity(comm);
+		List<Commodity> list = cMapper.getCommodity(null);
 		for(Commodity tmp:list){
 			System.out.println(tmp);
 		}

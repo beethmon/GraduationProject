@@ -15,13 +15,13 @@
 		FROM
 		commodity
 		<where>
-			<if test="cid != 0">
+			<if test="cid != null and cid != 0">
 				commodity.cid=#{cid}
 			</if>
 			<if test="state*state == 1">
 				AND commodity.state=#{state}
 			</if>
-			<if test="cname != null">
+			<if test="cname != null and cname != ''">
 				AND commodity.cname LIKE CONCAT(CONCAT('%',
 				#{cname}),'%')
 			</if>
