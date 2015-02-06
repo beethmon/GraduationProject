@@ -27,16 +27,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 public class HomeController extends BaseController{
 
-	private static final Logger logger = LoggerFactory
-			.getLogger(HomeController.class);
 
 	/**
 	 * Simply selects the home view to render by returning its name.
 	 */
 	@RequestMapping(value = "/")
 	public String home(Locale locale, Model model, Commodity commodity) {
-		logger.info("Welcome home! The client locale is {}.", locale);
-
 		Date date = new Date();
 		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG,
 				DateFormat.LONG, locale);

@@ -20,7 +20,7 @@ import com.github.pagehelper.PageHelper;
 
 @Controller
 @RequestMapping("/json")
-public class JsonController extends BaseController{
+public class JsonController extends BaseController {
 
 	@Autowired
 	public CommodityService commodityService;
@@ -28,8 +28,8 @@ public class JsonController extends BaseController{
 	@RequestMapping(value = "/commodity-{page}-{pagesize}", produces = "application/json")
 	@ResponseBody
 	public Map<String, Object> getCommodity(@PathVariable("page") int page,
-			@PathVariable("pagesize") int pagesize,
-			@ModelAttribute("commodity")@Validated Commodity commodity) {
+											@PathVariable("pagesize") int pagesize,
+											Commodity commodity) {
 		System.out.println("jsonController" + commodity);
 		Map<String, Object> map = new HashMap<String, Object>();
 		PageHelper.startPage(page, pagesize);
