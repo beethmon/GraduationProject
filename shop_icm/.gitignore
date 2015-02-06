@@ -2,3 +2,5 @@
 /workspace/
 /.classpath
 /.project
+/src/main/resources/conf/dbconnect.properties
+/bin/

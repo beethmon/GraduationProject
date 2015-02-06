@@ -20,7 +20,7 @@ import com.github.pagehelper.PageHelper;
 
 @Controller
 @RequestMapping("/json")
-public class JsonController {
+public class JsonController extends BaseController{
 
 	@Autowired
 	public CommodityService commodityService;

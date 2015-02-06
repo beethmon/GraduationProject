@@ -11,7 +11,7 @@
 
 	<P>The time on the server is ${serverTime}.</P>
 
-	<form action="/shop_icm/test" method="post" name="commodity">
+	<form action="/shop_icm/json/commodity-1-10" method="post" name="commodity">
 		<table>
 			<tr>
 				<td>cid:</td>

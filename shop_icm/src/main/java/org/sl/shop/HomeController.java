@@ -25,7 +25,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
  * Handles requests for the application home page.
  */
 @Controller
-public class HomeController {
+public class HomeController extends BaseController{
 
 	private static final Logger logger = LoggerFactory
 			.getLogger(HomeController.class);
@@ -53,15 +53,6 @@ public class HomeController {
 		System.out.println(commodity);
 		model.addAttribute("commodity", commodity);
 		return "test";
-	}
-
-	@InitBinder
-	public void initBinder(WebDataBinder binder) {
-		System.out.println("initBinder");
-		binder.registerCustomEditor(Date.class, new CustomDateEditor(
-				new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"), true));
-		binder.registerCustomEditor(int.class, new IntegerEditor());
-		binder.registerCustomEditor(String.class, new StringTrimmerEditor(true));
 	}
 
 }
