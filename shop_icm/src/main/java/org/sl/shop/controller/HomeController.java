@@ -1,4 +1,4 @@
-package org.sl.shop;
+package org.sl.shop.controller;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
