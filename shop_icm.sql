@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50619
 File Encoding         : 65001
 
-Date: 2015-02-02 13:40:35
+Date: 2015-02-06 17:09:48
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -39,11 +39,12 @@ CREATE TABLE `purchaseorder` (
   `spid` int(11) DEFAULT NULL,
   `sum` decimal(20,2) DEFAULT NULL,
   `poDate` datetime DEFAULT NULL,
+  `state` tinyint(4) DEFAULT '0',
   PRIMARY KEY (`poid`),
   UNIQUE KEY `bno_uq` (`bno`) USING HASH,
   KEY `pOrder4sp` (`spid`),
   CONSTRAINT `pOrder4sp` FOREIGN KEY (`spid`) REFERENCES `supplier` (`spid`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for purchaseorderitem
@@ -56,12 +57,11 @@ CREATE TABLE `purchaseorderitem` (
   `num` decimal(20,3) DEFAULT NULL,
   `unitPrice` decimal(20,2) DEFAULT NULL,
   `sum` decimal(20,2) DEFAULT NULL,
-  `comm` tinyblob,
   `poiDate` datetime DEFAULT NULL,
   PRIMARY KEY (`poiid`),
   KEY `poiFromComm` (`cid`),
   KEY `poi2po` (`poid`),
-  CONSTRAINT `poi2po` FOREIGN KEY (`poid`) REFERENCES `purchaseorder` (`poid`),
+  CONSTRAINT `poi2po` FOREIGN KEY (`poid`) REFERENCES `purchaseorder` (`poid`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `poiFromComm` FOREIGN KEY (`cid`) REFERENCES `commodity` (`cid`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
@@ -85,7 +85,7 @@ CREATE TABLE `refund` (
 -- ----------------------------
 DROP TABLE IF EXISTS `salesorder`;
 CREATE TABLE `salesorder` (
-  `soid` int(11) NOT NULL,
+  `soid` int(11) NOT NULL AUTO_INCREMENT,
   `bno` varchar(255) NOT NULL,
   `poDate` date DEFAULT NULL,
   `sum` decimal(20,2) DEFAULT NULL,
@@ -107,7 +107,7 @@ CREATE TABLE `salesorderitem` (
   PRIMARY KEY (`soiid`),
   KEY `soiFromComm` (`cid`),
   KEY `soi2so` (`soid`),
-  CONSTRAINT `soi2so` FOREIGN KEY (`soid`) REFERENCES `salesorder` (`soid`),
+  CONSTRAINT `soi2so` FOREIGN KEY (`soid`) REFERENCES `salesorder` (`soid`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `soiFromComm` FOREIGN KEY (`cid`) REFERENCES `commodity` (`cid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
