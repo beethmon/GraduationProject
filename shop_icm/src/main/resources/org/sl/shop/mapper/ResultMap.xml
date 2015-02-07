@@ -38,7 +38,8 @@
 	<!-- ============================================================ -->
 
 	<!-- ResultMap 销售单详尽版 -->
-	<resultMap type="SalesOrder" id="salesOrderAllResultMap">
+	<resultMap type="SalesOrder" id="salesOrderAllResultMap"
+		extends="salesOrderResultMap">
 		<collection property="items" resultMap="salesOrderItemResultMap" />
 	</resultMap>
 
@@ -81,12 +82,17 @@
 		<result property="bno" column="bno" />
 		<result property="poDate" column="poDate" />
 		<result property="sum" column="sum" />
-		<result property="state" column="state"/>
+		<result property="state" column="state" />
 		<association property="supplier" column="spid" javaType="Supplier"
 			resultMap="supplierResultMap" />
 	</resultMap>
 
 	<!-- ============================================================ -->
+
+	<!-- ResultMap 供货商详尽版 -->
+	<resultMap type="Supplier" id="supplierAllResultMap" extends="supplierResultMap">
+		<collection property="orders" resultMap="purchaseOrderAllResultMap" />
+	</resultMap>
 
 	<!-- ResultMap 供货商 -->
 	<resultMap type="Supplier" id="supplierResultMap">
@@ -95,12 +101,6 @@
 		<result property="address" column="address" />
 		<result property="contact" column="contact" />
 		<result property="about" column="about" />
-	</resultMap>
-
-
-	<!-- ResultMap 供货商详尽版 -->
-	<resultMap type="Supplier" id="supplierAllResultMap" extends="supplierResultMap">
-		<collection property="orders" resultMap="purchaseOrderAllResultMap" />
 	</resultMap>
 
 	<!-- ============================================================ -->

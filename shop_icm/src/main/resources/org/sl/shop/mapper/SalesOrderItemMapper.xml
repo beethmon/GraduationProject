@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.sl.shop.mapper.SalesOrderItemMapper">
+	<select id="getSalesOrderItem" parameterType="SalesOrderItem"
+		resultMap="org.sl.shop.mapper.ResultMap.salesOrderItemResultMap">
+		SELECT
+		salesorderitem.soiid,
+		salesorderitem.soid,
+		salesorderitem.cid,
+		salesorderitem.num,
+		salesorderitem.unitPrice,
+		salesorderitem.sum,
+		salesorderitem.soiDate,
+		salesorder.soid,
+		salesorder.bno,
+		salesorder.poDate,
+		salesorder.sum,
+		commodity.cid,
+		commodity.cname,
+		commodity.sales_price,
+		commodity.about,
+		commodity.path,
+		commodity.state
+		FROM
+		salesorderitem
+		INNER JOIN salesorder ON salesorderitem.soid =
+		salesorder.soid
+		INNER JOIN commodity ON salesorderitem.cid =
+		commodity.cid
+		<where>
+			<if test="soiid != null and soiid != 0">
+				salesorderitem.soiid= #{soiid}
+			</if>
+			<if test="comm != null and comm.cid != 0">
+				AND refund.cid = #{comm.cid}
+			</if>
+			<if test="comm !=null and comm.cname != null and comm.cname != '' ">
+				AND commodity.cname LIKE CONCAT(CONCAT('%',
+				#{comm.cname}),'%')
+			</if>
+			<if test="comm !=null and comm.cname != null and comm.cname != '' ">
+				AND commodity.cname LIKE CONCAT(CONCAT('%',
+				#{comm.cname}),'%')
+			</if>
+			<include refid="org.sl.shop.mapper.extra.range" />
+		</where>
+		<include refid="org.sl.shop.mapper.extra.orderby" />
+	</select>
+
+	<insert id="addSalesOrderItem" parameterType="SalesOrderItem">
+		INSERT INTO
+		salesorderitem
+		(soid,cid,num,unitPrice,sum,soiDate)
+		VALUES
+		(#{salesOrder.soid},#{comm.cid},#{num},#{unitPrice},#{sum},#{soiDate})
+	</insert>
+
+	<update id="updateSalesOrderItem" parameterType="SalesOrderItem">
+		UPDATE salesorderitem
+		<set>
+			<if test="comm != null">
+				cid = #{comm.cid},
+			</if>
+			<if test="num ! = 0">
+				num = #{num},
+			</if>
+			<if test="unitPrice != 0">
+				unitPrice =#{unitPrice},
+			</if>
+			<if test="sum != 0">
+				sum = #{sum},
+			</if>
+			<if test="soiDate != null">
+				soiDate = #{soiDate}
+			</if>
+		</set>
+		WHERE soiid = #{soiid}
+	</update>
+
+</mapper>

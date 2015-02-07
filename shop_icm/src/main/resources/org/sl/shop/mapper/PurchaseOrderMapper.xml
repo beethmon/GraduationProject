@@ -9,11 +9,8 @@
 			<if test="supplier != null">
 				AND purchaseorder.pid = #{supplier.spid},
 			</if>
-			<if test="bno != null">
+			<if test="bno != null and bno != ''">
 				AND purchaseorder.bno = #{bno},
-			</if>
-			<if test="sum != 0">
-				AND purchaseorder.sum =#{sum}
 			</if>
 			<if test="state*state ==1">
 				AND purchaseorder.state = #{state}
@@ -21,8 +18,9 @@
 			<if test="wait == true">
 				AND purchaseorder.state = 0
 			</if>
-
+			<include refid="org.sl.shop.mapper.extra.range" />
 		</where>
+		<include refid="org.sl.shop.mapper.extra.orderby" />
 	</sql>
 	<select id="getPurchaseOrderAll" parameterType="PurchaseOrder"
 		resultMap="org.sl.shop.mapper.ResultMap.purchaseOrderAllResultMap">

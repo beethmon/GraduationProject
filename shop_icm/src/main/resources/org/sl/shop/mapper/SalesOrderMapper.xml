@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.sl.shop.mapper.SalesOrderMapper">
+	<sql id="whereConditions">
+		<where>
+			<if test="soid != null and soid != 0">
+				salesorder.soid = #{soid},
+			</if>
+			<if test="bno != null and bno != ''">
+				AND salesorder.bno = #{bno},
+			</if>
+			<include refid="org.sl.shop.mapper.extra.range" />
+		</where>
+		<include refid="org.sl.shop.mapper.extra.orderby" />
+	</sql>
+
+	<select id="getSalesOrderAll" parameterType="getSalesOrder"
+		resultMap="org.sl.shop.mapper.ResultMap.getSalesOrderAllResultMap">
+		SELECT
+		salesorder.soid,
+		salesorder.bno,
+		salesorder.poDate,
+		salesorder.sum,
+		salesorderitem.soiid,
+		salesorderitem.soid,
+		salesorderitem.cid,
+		salesorderitem.num,
+		salesorderitem.unitPrice,
+		salesorderitem.sum,
+		salesorderitem.soiDate,
+		commodity.cid,
+		commodity.cname,
+		commodity.sales_price,
+		commodity.about,
+		commodity.path,
+		commodity.state
+		FROM
+		salesorder
+		INNER JOIN salesorderitem ON
+		salesorderitem.soid = salesorder.soid
+		INNER JOIN commodity ON
+		salesorderitem.cid = commodity.cid
+		<include refid="whereConditions" />
+	</select>
+
+	<select id="getSalesOrder" parameterType="getSalesOrder"
+		resultMap="org.sl.shop.mapper.ResultMap.getSalesOrderResultMap">
+		SELECT
+		salesorder.soid,
+		salesorder.bno,
+		salesorder.poDate,
+		salesorder.sum
+		FROM
+		salesorder
+		<include refid="whereConditions" />
+	</select>
+
+	<insert id="addSalesOrder" parameterType="SalesOrder">
+		INSERT INTO
+		salesorder
+		(bno,poDate,sum)
+		VALUES
+		(#{bno},#{poDate},#{sum})
+	</insert>
+
+	<update id="updateSalesOrder">
+		UPDATE salesorder
+		<set>
+			<if test="sum != 0">
+				sum =#{sum},
+			</if>
+			<if test="poDate != null">
+				poDate = #{poDate}
+			</if>
+		</set>
+		WHERE soid = #{soid}
+	</update>
+
+</mapper>

@@ -12,4 +12,6 @@ public interface SalesOrderMapper {
 	public boolean deleteSalesOrder(SalesOrder salesOrder);
 
 	public List<SalesOrder> getSalesOrder(SalesOrder salesOrder);
+
+	public List<SalesOrder> getSalesOrderAll(SalesOrder salesOrder);
 }

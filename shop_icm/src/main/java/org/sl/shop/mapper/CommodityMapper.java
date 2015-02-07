@@ -15,7 +15,8 @@ public interface CommodityMapper {
 	// query
 	/**
 	 * 
-	 * @param comm 用javabean传参
+	 * @param comm
+	 *            用javabean传参
 	 * @return
 	 */
 	public List<Commodity> getCommodity(Commodity comm);

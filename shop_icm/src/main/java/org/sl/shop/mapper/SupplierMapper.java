@@ -19,5 +19,6 @@ public interface SupplierMapper {
 	 * @return
 	 */
 	public List<Supplier> getSupplierAll(Supplier supplier);
+
 	public List<Supplier> getSupplier(Supplier supplier);
 }

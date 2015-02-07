@@ -35,7 +35,7 @@ public class SalesOrder extends QueryExtra {
 		this.bno = bno;
 	}
 
-	public List<SalesOrderItem> getItmes() {
+	public List<SalesOrderItem> getItems() {
 		return items;
 	}
 

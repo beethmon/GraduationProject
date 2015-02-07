@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class CommodityService {
-	
+
 	@Autowired
 	public CommodityMapper commodityMapper;
 
@@ -21,8 +21,11 @@ public class CommodityService {
 		commodityMapper.addCommodity(comm);
 	}
 
-	public void updateCommodity(Commodity comm) {
+	public boolean updateCommodity(Commodity comm) {
+		if (comm.getCid() == 0)
+			return false;
 		commodityMapper.updateCommodity(comm);
+		return true;
 	}
-	
+
 }

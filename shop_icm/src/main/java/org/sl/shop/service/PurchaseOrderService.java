@@ -6,11 +6,14 @@ import org.sl.shop.mapper.PurchaseOrderItemMapper;
 import org.sl.shop.mapper.PurchaseOrderMapper;
 import org.sl.shop.model.PurchaseOrder;
 import org.sl.shop.model.PurchaseOrderItem;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class PurchaseOrderService {
+	@Autowired
 	public PurchaseOrderMapper purchaseOrderMapper;
+	@Autowired
 	public PurchaseOrderItemMapper purchaseOrderItemMapper;
 
 	public List<PurchaseOrder> getPurchaseOrder(PurchaseOrder purchaseOrder) {
@@ -31,7 +34,9 @@ public class PurchaseOrderService {
 		}
 	}
 
-	public void updatePurchaseOrder(PurchaseOrder purchaseOrder) {
+	public boolean updatePurchaseOrder(PurchaseOrder purchaseOrder) {
+		if (purchaseOrder.getPoid() == 0)
+			return false;
 		purchaseOrderMapper.updatePurchaseOrder(purchaseOrder);
 		List<PurchaseOrderItem> list = purchaseOrder.getItems();
 		if (null != list) {
@@ -39,5 +44,6 @@ public class PurchaseOrderService {
 				purchaseOrderItemMapper.updatePurchaseOrderItem(item);
 			}
 		}
+		return true;
 	}
 }

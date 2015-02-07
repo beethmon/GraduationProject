@@ -23,6 +23,7 @@
 				#{about}),'%')
 			</if>
 		</where>
+		<include refid="org.sl.shop.mapper.extra.orderby" />
 	</sql>
 	<select id="getSupplierAll" parameterType="Supplier"
 		resultMap="org.sl.shop.mapper.ResultMap.supplierAllResultMap">
@@ -53,10 +54,13 @@
 		commodity.state
 		FROM
 		supplier
-		LEFT JOIN purchaseorder ON purchaseorder.spid = supplier.spid
-		LEFT JOIN purchaseorderitem ON purchaseorderitem.poid = purchaseorder.poid
-		LEFT JOIN commodity ON purchaseorderitem.cid = commodity.cid
-		<include refid="whereConditions"/>
+		LEFT JOIN purchaseorder ON purchaseorder.spid =
+		supplier.spid
+		LEFT JOIN purchaseorderitem ON purchaseorderitem.poid =
+		purchaseorder.poid
+		LEFT JOIN commodity ON purchaseorderitem.cid =
+		commodity.cid
+		<include refid="whereConditions" />
 	</select>
 	<select id="getSupplier" parameterType="Supplier"
 		resultMap="org.sl.shop.mapper.ResultMap.supplierResultMap">
@@ -68,7 +72,7 @@
 		supplier.about
 		FROM
 		supplier
-		<include refid="whereConditions"/>
+		<include refid="whereConditions" />
 	</select>
 	<insert id="addSupplier" parameterType="Supplier">
 		INSERT INTO

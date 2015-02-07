@@ -23,6 +23,8 @@ public class Staff extends QueryExtra {
 	private int isService;
 	private BigDecimal salary;
 
+	private User user;
+
 	public int getStaffId() {
 		return staffId;
 	}
@@ -79,12 +81,12 @@ public class Staff extends QueryExtra {
 		this.salary = salary;
 	}
 
-	public static int getActive() {
-		return ACTIVE;
+	public User getUser() {
+		return user;
 	}
 
-	public static int getNegative() {
-		return NEGATIVE;
+	public void setUser(User user) {
+		this.user = user;
 	}
 
 }

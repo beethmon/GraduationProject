@@ -22,8 +22,11 @@ public class SupplierService {
 		supplierMapper.addSupplier(supplier);
 	}
 
-	public void updateSupplier(Supplier supplier) {
+	public boolean updateSupplier(Supplier supplier) {
+		if(supplier.getSpid() == 0)
+			return false;
 		supplierMapper.updateSupplier(supplier);
+		return true;
 	}
 
 }

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.sl.shop.mapper.RefundMapper">
+	<select id="getRefund" parameterType="Refund"
+		resultMap="org.sl.shop.mapper.ResultMap.refundResultMap">
+		SELECT
+		refund.rid,
+		refund.cid,
+		refund.num,
+		refund.refundDate,
+		refund.refund,
+		commodity.cid,
+		commodity.cname,
+		commodity.sales_price,
+		commodity.about,
+		commodity.path,
+		commodity.state
+		FROM
+		refund
+		INNER JOIN
+		commodity ON refund.cid = commodity.cid
+		<where>
+			<if test="rid != null and rid != 0">
+				refund.rid = #{rid},
+			</if>
+			<if test="comm != null and comm.cid != 0">
+				AND refund.cid = #{comm.cid},
+			</if>
+			<if test="comm != null and comm.cname !=''">
+				AND commodity.cname LIKE CONCAT(CONCAT('%',
+				#{comm.cname}),'%'),
+			</if>
+			<include refid="org.sl.shop.mapper.extra.range" />
+		</where>
+		<include refid="org.sl.shop.mapper.extra.orderby" />
+	</select>
+ 
+	<insert id="addRefund" parameterType="Refund">
+		INSERT INTO
+		refund
+		(cid,num,refundDate,refund)
+		VALUES
+		(#{comm.cid},#{num},#{refundDate},#{refund})
+	</insert>
+	
+	<update id="updateRefund" parameterType="Refund">
+		UPDATE refund
+		<set>
+			<if test="comm != null and comm.id != 0">
+				cid = #{comm.cid},
+			</if>
+			<if test="num != 0">
+				num = #{num},
+			</if>
+			<if test="refundDate != null">
+				refundDate = #{refundDate}
+			</if>
+			<if test="refund != 0">
+				refund = #{refund}
+			</if>
+		</set>
+		WHERE rid = #{rid}
+	</update>
+	
+</mapper>

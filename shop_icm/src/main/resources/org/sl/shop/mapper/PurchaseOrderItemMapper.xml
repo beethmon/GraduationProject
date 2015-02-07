@@ -37,14 +37,16 @@
 			<if test="purchaseOrder != null">
 				AND purchaseorderitem.poid = #{purchaseOrder.poid},
 			</if>
-			<if test="comm != null">
+			<if test="comm != null and comm.cid != 0">
 				AND purchaseorderitem.cid = #{comm.cid}
 			</if>
 			<if test="comm !=null and comm.cname != null and comm.cname != '' ">
 				AND commodity.cname LIKE CONCAT(CONCAT('%',
 				#{comm.cname}),'%')
 			</if>
+			<include refid="org.sl.shop.mapper.extra.range" />
 		</where>
+		<include refid="org.sl.shop.mapper.extra.orderby" />
 	</select>
 
 	<insert id="addPurchaseOrderItem" parameterType="PurchaseOrderItem">
@@ -74,5 +76,6 @@
 				poiDate = #{poiDate}
 			</if>
 		</set>
+		WHERE poiid = #{poiid}
 	</update>
 </mapper>

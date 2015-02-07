@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.sl.shop.mapper.StaffMapper">
+	<select id="getStaff">
+		SELECT
+		staff.staffid,
+		staff.uid,
+		staff.sname,
+		staff.gender,
+		staff.birth,
+		staff.post,
+		staff.service,
+		staff.salary
+		FROM
+		staff
+		<where>
+			<if test="staffid !=0">
+				staff.staffid = #{staffid},
+			</if>
+			<if test="user.uid !=0 ">
+				AND staff.uid = #{user.uid},
+			</if>
+			<if test="sname != null and sname != ''">
+				AND staff.sname LIKE CONCAT(CONCAT('%',#{sname}),'%'),
+			</if>
+			<if test="gender !=null and gender !=''">
+				AND staff.gender = #{gender}
+			</if>
+			<if test="service*service != 0">
+				AND staff.service = #{service}
+			</if>
+			<include refid="org.sl.shop.mapper.extra.range" />
+		</where>
+		<include refid="org.sl.shop.mapper.extra.orderby" />
+	</select>
+	
+	<insert id="addStaff" parameterType="Staff">
+		INSERT INTO
+		staff
+		(uid,sname,gender,birth,post,service,salary)
+		VALUES
+		(#{user.uid},#{sname},#{gender},#{birth},#{post},#{service},#{salary})
+	</insert>
+	
+	<update id="updateStaff" parameterType="Staff">
+		UPDATE staff
+		<set>
+			<if test="user.uid !=0 ">
+				staff.uid = #{user.uid},
+			</if>
+			<if test="sname != null and sname != ''">
+				sname = #{sname},
+			</if>
+			<if test="gender !=null and gender !=''">
+				gender = #{gender},
+			</if>
+			<if test="birth != null">
+				birth = #{birth},
+			</if>
+			<if test="post != null">
+				post = #{post},
+			</if>
+			<if test="service*service != 0">
+				service = #{service},
+			</if>
+			<if test="salary != 0">
+				salary = #{salary}
+			</if>
+		</set>
+	</update>
+	
+</mapper>
