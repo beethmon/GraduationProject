@@ -19,6 +19,7 @@ public class SpringUnitTestBase {
 
 	@Before
 	public void before() {
+		System.out.println("before");
 		if (this.springXmlPath.isEmpty())
 			springXmlPath = "classpaht*:spring-*.xml";
 		try {

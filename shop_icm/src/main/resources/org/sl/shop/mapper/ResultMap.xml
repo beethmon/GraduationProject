@@ -123,8 +123,15 @@
 		<result property="username" column="username" />
 		<result property="password" column="password" />
 		<result property="limit" column="limit" />
-		<association property="staff" column="uid" javaType="Staff"
-			resultMap="staffResultMap" />
+		<association property="staff" column="uid" javaType="Staff">
+			<id property="staffId" column="staffid" />
+			<result property="sname" column="sname" />
+			<result property="gender" column="gender" />
+			<result property="birth" column="birth" />
+			<result property="post" column="post" />
+			<result property="isService" column="isService" />
+			<result property="salary" column="salary" />
+		</association>
 	</resultMap>
 
 	<resultMap type="Staff" id="staffResultMap">
@@ -135,5 +142,11 @@
 		<result property="post" column="post" />
 		<result property="isService" column="isService" />
 		<result property="salary" column="salary" />
+		<association property="user" column="uid" javaType="User">
+			<id property="uid" column="uid" />
+			<result property="username" column="username" />
+			<result property="password" column="password" />
+			<result property="limit" column="limit" />
+		</association>
 	</resultMap>
 </mapper>

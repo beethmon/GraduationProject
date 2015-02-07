@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="org.sl.shop.mapper.StaffMapper">
-	<select id="getStaff">
+	<select id="getStaff" parameterType="Staff"
+		resultMap="org.sl.shop.mapper.ResultMap.StaffResultMap">
 		SELECT
 		staff.staffid,
 		staff.uid,
@@ -10,9 +11,16 @@
 		staff.birth,
 		staff.post,
 		staff.service,
-		staff.salary
+		staff.salary,
+		tuser.uid,
+		tuser.username,
+		tuser.`password`,
+		tuser.`limit`,
+		tuser.staffid
 		FROM
 		staff
+		INNER JOIN tuser
+		ON staff.uid = tuser.uid
 		<where>
 			<if test="staffid !=0">
 				staff.staffid = #{staffid},
@@ -33,7 +41,7 @@
 		</where>
 		<include refid="org.sl.shop.mapper.extra.orderby" />
 	</select>
-	
+
 	<insert id="addStaff" parameterType="Staff">
 		INSERT INTO
 		staff
@@ -41,7 +49,7 @@
 		VALUES
 		(#{user.uid},#{sname},#{gender},#{birth},#{post},#{service},#{salary})
 	</insert>
-	
+
 	<update id="updateStaff" parameterType="Staff">
 		UPDATE staff
 		<set>
@@ -68,5 +76,5 @@
 			</if>
 		</set>
 	</update>
-	
+
 </mapper>

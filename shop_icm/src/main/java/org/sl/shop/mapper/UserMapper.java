@@ -11,5 +11,7 @@ public interface UserMapper {
 
 	public boolean deleteUser(User user);
 
-	public List<User> getUser(User user);
+	public List<User> getAllUser(User user);
+	
+	public User login(User user);
 }

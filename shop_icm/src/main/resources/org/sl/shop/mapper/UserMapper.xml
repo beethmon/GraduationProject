@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.sl.shop.mapper.UserMapper">
+	<sql id="selectSql">
+		SELECT
+		tuser.uid,
+		tuser.username,
+		tuser.`password`,
+		tuser.`limit`,
+		tuser.staffid,
+		staff.staffid,
+		staff.uid,
+		staff.sname,
+		staff.gender,
+		staff.birth,
+		staff.post,
+		staff.service,
+		staff.salary
+		FROM
+		tuser
+		LEFT JOIN staff ON tuser.staffid = staff.staffid
+	</sql>
+
+	<select id="login" parameterType="User"
+		resultMap="org.sl.shop.mapper.ResultMap.UserResultMap">
+		<include refid="selectSql" />
+		WHERE
+		tuser.username = #{username}
+		AND tuser.`password` = #{password}
+	</select>
+
+	<select id="getAllUser" parameterType="User"
+		resultMap="org.sl.shop.mapper.ResultMap.UserResultMap">
+		<include refid="selectSql" />
+	</select>
+
+	<insert id="addUser" parameterType="User">
+		INSERT INTO
+		tuser
+		(username,`password`,`limit`)
+		VALUES
+		(#{username},#{password},#{limit})
+	</insert>
+
+	<update id="updateUser" parameterType="User">
+		UPDATE tuser
+		SET
+		<if test="staff!=null">
+			staffid =#{staff.staffid},
+		</if>
+		`password` = #{password},
+		`limit` = #{limit}
+	</update>
+</mapper>
