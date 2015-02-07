@@ -21,14 +21,14 @@
 		commodity ON refund.cid = commodity.cid
 		<where>
 			<if test="rid != null and rid != 0">
-				refund.rid = #{rid},
+				refund.rid = #{rid}
 			</if>
 			<if test="comm != null and comm.cid != 0">
-				AND refund.cid = #{comm.cid},
+				AND refund.cid = #{comm.cid}
 			</if>
 			<if test="comm != null and comm.cname !=''">
 				AND commodity.cname LIKE CONCAT(CONCAT('%',
-				#{comm.cname}),'%'),
+				#{comm.cname}),'%')
 			</if>
 			<include refid="org.sl.shop.mapper.extra.range" />
 		</where>

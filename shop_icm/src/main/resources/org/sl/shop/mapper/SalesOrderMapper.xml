@@ -4,10 +4,10 @@
 	<sql id="whereConditions">
 		<where>
 			<if test="soid != null and soid != 0">
-				salesorder.soid = #{soid},
+				salesorder.soid = #{soid}
 			</if>
 			<if test="bno != null and bno != ''">
-				AND salesorder.bno = #{bno},
+				AND salesorder.bno = #{bno}
 			</if>
 			<include refid="org.sl.shop.mapper.extra.range" />
 		</where>

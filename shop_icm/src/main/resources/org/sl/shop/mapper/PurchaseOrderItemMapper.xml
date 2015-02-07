@@ -10,7 +10,6 @@
 		purchaseorderitem.num,
 		purchaseorderitem.unitPrice,
 		purchaseorderitem.sum,
-		purchaseorderitem.comm,
 		purchaseorderitem.poiDate,
 		purchaseorder.poid,
 		purchaseorder.bno,
@@ -32,15 +31,15 @@
 		purchaseorderitem.cid = commodity.cid
 		<where>
 			<if test="poiid != 0 and poiid != null">
-				purchaseorderitem.poiid = #{poiid},
+				purchaseorderitem.poiid = #{poiid}
 			</if>
 			<if test="purchaseOrder != null">
-				AND purchaseorderitem.poid = #{purchaseOrder.poid},
+				AND purchaseorderitem.poid = #{purchaseOrder.poid}
 			</if>
 			<if test="comm != null and comm.cid != 0">
 				AND purchaseorderitem.cid = #{comm.cid}
 			</if>
-			<if test="comm !=null and comm.cname != null and comm.cname != '' ">
+			<if test="comm != null and comm.cname != null and comm.cname != '' ">
 				AND commodity.cname LIKE CONCAT(CONCAT('%',
 				#{comm.cname}),'%')
 			</if>

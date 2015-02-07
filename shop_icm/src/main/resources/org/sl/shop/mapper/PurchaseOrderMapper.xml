@@ -4,13 +4,13 @@
 	<sql id="whereConditions">
 		<where>
 			<if test="poid != null and poid != 0">
-				purchaseorder.poid = #{poid},
+				purchaseorder.poid = #{poid}
 			</if>
 			<if test="supplier != null">
-				AND purchaseorder.pid = #{supplier.spid},
+				AND purchaseorder.pid = #{supplier.spid}
 			</if>
 			<if test="bno != null and bno != ''">
-				AND purchaseorder.bno = #{bno},
+				AND purchaseorder.bno = #{bno}
 			</if>
 			<if test="state*state ==1">
 				AND purchaseorder.state = #{state}
@@ -54,7 +54,7 @@
 		<include refid="whereConditions" />
 	</select>
 
-	<select id="getPurchaserOrder" parameterType="PurchaseOrder"
+	<select id="getPurchaseOrder" parameterType="PurchaseOrder"
 		resultMap="org.sl.shop.mapper.ResultMap.purchaseOrderResultMap">
 		SELECT
 		purchaseorder.poid,

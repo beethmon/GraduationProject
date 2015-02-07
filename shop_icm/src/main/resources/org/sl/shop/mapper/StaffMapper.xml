@@ -23,13 +23,13 @@
 		ON staff.uid = tuser.uid
 		<where>
 			<if test="staffid !=0">
-				staff.staffid = #{staffid},
+				staff.staffid = #{staffid}
 			</if>
-			<if test="user.uid !=0 ">
-				AND staff.uid = #{user.uid},
+			<if test="user!=null and user.uid != 0">
+				AND staff.uid = #{user.uid}
 			</if>
 			<if test="sname != null and sname != ''">
-				AND staff.sname LIKE CONCAT(CONCAT('%',#{sname}),'%'),
+				AND staff.sname LIKE CONCAT(CONCAT('%',#{sname}),'%')
 			</if>
 			<if test="gender !=null and gender !=''">
 				AND staff.gender = #{gender}
