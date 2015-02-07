@@ -49,6 +49,11 @@
 		<mapper resource="org/sl/shop/mapper/CommodityMapper.xml" />
 		<mapper resource="org/sl/shop/mapper/PurchaseOrderMapper.xml" />
 		<mapper resource="org/sl/shop/mapper/PurchaseOrderItemMapper.xml" />
-		
+		<mapper resource="org/sl/shop/mapper/SalesOrderMapper.xml" />
+		<mapper resource="org/sl/shop/mapper/SalesOrderItemMapper.xml" />
+		<mapper resource="org/sl/shop/mapper/RefundMapper.xml" />
+		<mapper resource="org/sl/shop/mapper/StockMapper.xml" />
+		<mapper resource="org/sl/shop/mapper/StaffMapper.xml" />
+		<mapper resource="org/sl/shop/mapper/UserMapper.xml" />
 	</mappers>
 </configuration>

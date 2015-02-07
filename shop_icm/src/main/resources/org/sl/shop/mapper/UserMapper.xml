@@ -22,7 +22,7 @@
 	</sql>
 
 	<select id="login" parameterType="User"
-		resultMap="org.sl.shop.mapper.ResultMap.UserResultMap">
+		resultMap="org.sl.shop.mapper.ResultMap.userResultMap">
 		<include refid="selectSql" />
 		WHERE
 		tuser.username = #{username}
@@ -30,7 +30,7 @@
 	</select>
 
 	<select id="getAllUser" parameterType="User"
-		resultMap="org.sl.shop.mapper.ResultMap.UserResultMap">
+		resultMap="org.sl.shop.mapper.ResultMap.userResultMap">
 		<include refid="selectSql" />
 	</select>
 

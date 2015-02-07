@@ -14,8 +14,8 @@
 		<include refid="org.sl.shop.mapper.extra.orderby" />
 	</sql>
 
-	<select id="getSalesOrderAll" parameterType="getSalesOrder"
-		resultMap="org.sl.shop.mapper.ResultMap.getSalesOrderAllResultMap">
+	<select id="getSalesOrderAll" parameterType="SalesOrder"
+		resultMap="org.sl.shop.mapper.ResultMap.salesOrderAllResultMap">
 		SELECT
 		salesorder.soid,
 		salesorder.bno,
@@ -43,8 +43,8 @@
 		<include refid="whereConditions" />
 	</select>
 
-	<select id="getSalesOrder" parameterType="getSalesOrder"
-		resultMap="org.sl.shop.mapper.ResultMap.getSalesOrderResultMap">
+	<select id="getSalesOrder" parameterType="SalesOrder"
+		resultMap="org.sl.shop.mapper.ResultMap.salesOrderResultMap">
 		SELECT
 		salesorder.soid,
 		salesorder.bno,
