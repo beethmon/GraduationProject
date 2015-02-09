@@ -4,3 +4,6 @@
 /.project
 /src/main/resources/conf/dbconnect.properties
 /bin/
+/.springBeans
+/*.iml
+/.idea

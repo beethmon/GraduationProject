@@ -41,19 +41,4 @@
 				value="pageNum=start;pageSize=limit;pageSizeZero=zero;reasonable=heli;pageCount=contSql" />
 		</plugin>
 	</plugins>
-	<!-- 声明mapping 有两种方式 其中个别声明有3种写法 分别为resource url class -->
-	<mappers>
-		<mapper resource="org/sl/shop/mapper/ResultMap.xml" />
-		<mapper resource="org/sl/shop/mapper/QueryExtra.xml" />
-		<mapper resource="org/sl/shop/mapper/SupplierMapper.xml" />
-		<mapper resource="org/sl/shop/mapper/CommodityMapper.xml" />
-		<mapper resource="org/sl/shop/mapper/PurchaseOrderMapper.xml" />
-		<mapper resource="org/sl/shop/mapper/PurchaseOrderItemMapper.xml" />
-		<mapper resource="org/sl/shop/mapper/SalesOrderMapper.xml" />
-		<mapper resource="org/sl/shop/mapper/SalesOrderItemMapper.xml" />
-		<mapper resource="org/sl/shop/mapper/RefundMapper.xml" />
-		<mapper resource="org/sl/shop/mapper/StockMapper.xml" />
-		<mapper resource="org/sl/shop/mapper/StaffMapper.xml" />
-		<mapper resource="org/sl/shop/mapper/UserMapper.xml" />
-	</mappers>
 </configuration>

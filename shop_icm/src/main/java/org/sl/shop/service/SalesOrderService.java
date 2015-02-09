@@ -7,7 +7,10 @@ import org.sl.shop.mapper.SalesOrderMapper;
 import org.sl.shop.model.SalesOrder;
 import org.sl.shop.model.SalesOrderItem;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+
+@Service
 public class SalesOrderService {
 	@Autowired
 	public SalesOrderMapper salesOrderMapper;
