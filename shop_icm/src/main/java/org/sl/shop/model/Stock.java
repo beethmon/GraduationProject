@@ -2,6 +2,8 @@ package org.sl.shop.model;
 
 import org.sl.shop.util.QueryExtra;
 
+import java.math.BigDecimal;
+
 /**
  * 库存
  * @author godoway
@@ -9,7 +11,7 @@ import org.sl.shop.util.QueryExtra;
  */
 public class Stock extends QueryExtra {
 	private Commodity comm;
-	private int num;
+	private BigDecimal num;
 	
 	public Commodity getComm() {
 		return comm;
@@ -17,11 +19,14 @@ public class Stock extends QueryExtra {
 	public void setComm(Commodity comm) {
 		this.comm = comm;
 	}
-	public int getNum() {
+	public BigDecimal getNum() {
 		return num;
 	}
-	public void setNum(int num) {
+	public void setNum(BigDecimal num) {
 		this.num = num;
 	}
+    public void setNum(int num){
+        this.num =BigDecimal.valueOf(num);
+    }
 	
 }

@@ -8,42 +8,56 @@ import org.sl.shop.model.PurchaseOrder;
 import org.sl.shop.model.PurchaseOrderItem;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class PurchaseOrderService {
-	@Autowired
-	public PurchaseOrderMapper purchaseOrderMapper;
-	@Autowired
-	public PurchaseOrderItemMapper purchaseOrderItemMapper;
+    @Autowired
+    public PurchaseOrderMapper purchaseOrderMapper;
+    @Autowired
+    public PurchaseOrderItemMapper purchaseOrderItemMapper;
 
-	public List<PurchaseOrder> getPurchaseOrder(PurchaseOrder purchaseOrder) {
-		return purchaseOrderMapper.getPurchaseOrder(purchaseOrder);
-	}
+    @Transactional(readOnly = true)
+    public List<PurchaseOrder> getPurchaseOrder(PurchaseOrder purchaseOrder) {
+        return purchaseOrderMapper.getPurchaseOrder(purchaseOrder);
+    }
 
-	public List<PurchaseOrder> getPurchaseOrderAll(PurchaseOrder purchaseOrder) {
-		return purchaseOrderMapper.getPurchaseOrderAll(purchaseOrder);
-	}
+    @Transactional(readOnly = true)
+    public List<PurchaseOrder> getPurchaseOrderAll(PurchaseOrder purchaseOrder) {
+        return purchaseOrderMapper.getPurchaseOrderAll(purchaseOrder);
+    }
 
-	public void addPurchaseOrder(PurchaseOrder purchaseOrder) {
-		purchaseOrderMapper.addPurchaseOrder(purchaseOrder);
-		List<PurchaseOrderItem> list = purchaseOrder.getItems();
-		if (null != list) {
-			for (PurchaseOrderItem item : list) {
-				purchaseOrderItemMapper.addPurchaseOrderItem(item);
-			}
-		}
-	}
+    @Transactional
+    public void addPurchaseOrder(PurchaseOrder purchaseOrder) {
+        List<PurchaseOrderItem> list = purchaseOrder.getItems();
+        if (null != list) {
+            for (PurchaseOrderItem item : list) {
+                purchaseOrderItemMapper.addPurchaseOrderItem(item);
+            }
+        }
+        purchaseOrderMapper.addPurchaseOrder(purchaseOrder);
+    }
 
-	public boolean updatePurchaseOrder(PurchaseOrder purchaseOrder) {
-		if (purchaseOrder.getPoid() == 0)
-			return false;
-		purchaseOrderMapper.updatePurchaseOrder(purchaseOrder);
-		List<PurchaseOrderItem> list = purchaseOrder.getItems();
-		if (null != list) {
-			for (PurchaseOrderItem item : list) {
-				purchaseOrderItemMapper.updatePurchaseOrderItem(item);
-			}
-		}
-		return true;
-	}
+    @Transactional
+    public void updatePurchaseOrder(PurchaseOrder purchaseOrder) {
+        purchaseOrderMapper.updatePurchaseOrder(purchaseOrder);
+        List<PurchaseOrderItem> list = purchaseOrder.getItems();
+        if (null != list) {
+            for (PurchaseOrderItem item : list) {
+                purchaseOrderItemMapper.updatePurchaseOrderItem(item);
+            }
+        }
+    }
+
+    @Transactional
+    public boolean deletePurchaseOrder(PurchaseOrder purchaseOrder) {
+        List<PurchaseOrderItem> list = purchaseOrder.getItems();
+        if (list != null && list.size() > 0) {
+            for (PurchaseOrderItem item : list) {
+                purchaseOrderItemMapper.deletePurchaseOrderItem(item);
+            }
+        }
+        purchaseOrderMapper.deletePurchaseOrder(purchaseOrder);
+        return true;
+    }
 }

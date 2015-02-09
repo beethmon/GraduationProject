@@ -92,4 +92,7 @@
 		WHERE poid = #{poid}
 	</update>
 
+    <delete id="deletePurchaseOrder" parameterType="PurchaseOrder">
+        DELETE FROM purchaseOrder WHERE poid = #{poid}
+    </delete>
 </mapper>

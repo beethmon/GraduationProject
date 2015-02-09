@@ -9,7 +9,7 @@ public interface SupplierMapper {
 
 	public int updateSupplier(Supplier supplier);
 
-	public boolean removeSupplier(Supplier supplier);
+	public boolean deleteSupplier(Supplier supplier);
 
 	// query
 	/**

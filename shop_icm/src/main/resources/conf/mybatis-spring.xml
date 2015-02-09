@@ -2,10 +2,13 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:tx="http://www.springframework.org/schema/tx"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
         http://www.springframework.org/schema/beans/spring-beans.xsd
         http://www.springframework.org/schema/context
-        http://www.springframework.org/schema/context/spring-context.xsd">
+        http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/tx
+        http://www.springframework.org/schema/tx/spring-tx-3.0.xsd">
 	
 
 	<!-- 读取mysql-connect配置文件 -->
@@ -25,18 +28,19 @@
 		<property name="configLocation" value="classpath:conf/mybatis-config.xml" />
         <property name="mapperLocations" value="classpath*:org/sl/shop/mapper/*.xml" />
 	</bean>
-	
-	<!-- 注入mapper接口 -->
-    <!--
-    <bean id="commodityMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
-        <property name="mapperInterface" value="org.sl.shop.mapper.CommodityMapper" />
-        <property name="sqlSessionFactory" ref="sqlSessionFactory" />
+
+    <!-- 事务 -->
+    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource" />
     </bean>
-    -->
+
+    <!-- 事务注解驱动，标注@Transactional的类和方法将具有事务性 -->
+    <tx:annotation-driven transaction-manager="transactionManager" />
 
 	<!-- 把org.sl.shop.mapper下面的映射类全部注入到spring -->
 	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
 		<property name="basePackage" value="org.sl.shop.mapper" />
 	</bean>
+
 
 </beans>

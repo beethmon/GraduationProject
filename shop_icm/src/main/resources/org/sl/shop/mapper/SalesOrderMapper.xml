@@ -63,7 +63,7 @@
 		(#{bno},#{poDate},#{sum})
 	</insert>
 
-	<update id="updateSalesOrder">
+	<update id="updateSalesOrder" parameterType="SalesOrder">
 		UPDATE salesorder
 		<set>
 			<if test="sum != 0">
@@ -76,4 +76,7 @@
 		WHERE soid = #{soid}
 	</update>
 
+    <delete id="deleteSalesOrder" parameterType="SalesOrder">
+        DELETE FROM  salesorder WHERE soid = #{soid}
+    </delete>
 </mapper>

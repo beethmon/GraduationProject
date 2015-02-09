@@ -5,28 +5,36 @@ import java.util.List;
 import org.sl.shop.mapper.SupplierMapper;
 import org.sl.shop.model.Supplier;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class SupplierService {
-	public SupplierMapper supplierMapper;
+    public SupplierMapper supplierMapper;
 
-	public List<Supplier> getSupplier(Supplier supplier) {
-		return supplierMapper.getSupplier(supplier);
-	}
+    @Transactional(readOnly = true)
+    public List<Supplier> getSupplier(Supplier supplier) {
+        return supplierMapper.getSupplier(supplier);
+    }
 
-	public List<Supplier> getSupplierAll(Supplier supplier) {
-		return supplierMapper.getSupplierAll(supplier);
-	}
+    @Transactional(readOnly = true)
+    public List<Supplier> getSupplierAll(Supplier supplier) {
+        return supplierMapper.getSupplierAll(supplier);
+    }
 
-	public void addSupplier(Supplier supplier) {
-		supplierMapper.addSupplier(supplier);
-	}
+    @Transactional
+    public void addSupplier(Supplier supplier) {
+        supplierMapper.addSupplier(supplier);
+    }
 
-	public boolean updateSupplier(Supplier supplier) {
-		if(supplier.getSpid() == 0)
-			return false;
-		supplierMapper.updateSupplier(supplier);
-		return true;
-	}
+    @Transactional
+    public void updateSupplier(Supplier supplier) {
+        supplierMapper.updateSupplier(supplier);
+    }
+
+    @Transactional
+    public boolean deleteSupplier(Supplier supplier) {
+        supplierMapper.deleteSupplier(supplier);
+        return true;
+    }
 
 }

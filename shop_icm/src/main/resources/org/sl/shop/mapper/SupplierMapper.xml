@@ -99,4 +99,8 @@
 		</set>
 		WHERE spid = #{spid}
 	</update>
+    
+    <delete id="deleteSupplier" parameterType="Supplier">
+        DELETE FROM supplier WHERE spid = #{spid}
+    </delete>
 </mapper>

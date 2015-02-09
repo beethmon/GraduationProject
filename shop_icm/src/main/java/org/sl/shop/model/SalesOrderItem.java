@@ -47,7 +47,7 @@ public class SalesOrderItem extends QueryExtra {
 	}
 
 	public void setNum(int num) {
-		this.num = new BigDecimal(num);
+		this.num = BigDecimal.valueOf(num);
 	}
 
 	public BigDecimal getUnitPrice() {

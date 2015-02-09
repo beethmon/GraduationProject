@@ -73,4 +73,7 @@
 		WHERE soiid = #{soiid}
 	</update>
 
+    <delete id="deleteSalesOrderItem" parameterType="SalesOrderItem">
+        DELETE FROM salesorderitem where soiid = #{soiid}
+    </delete>
 </mapper>

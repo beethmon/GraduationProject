@@ -51,4 +51,8 @@
 		`password` = #{password},
 		`limit` = #{limit}
 	</update>
+
+    <delete id="deleteUser" parameterType="User">
+        DELETE FROM tuer WHERE uid ={uid}
+    </delete>
 </mapper>

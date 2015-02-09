@@ -61,5 +61,8 @@
 		</set>
 		WHERE rid = #{rid}
 	</update>
-	
+
+    <delete id="deleteRefund" parameterType="Refund">
+        DELETE FROM refund WHERE rid = #{rid}
+    </delete>
 </mapper>

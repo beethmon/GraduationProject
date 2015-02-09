@@ -10,7 +10,7 @@ public interface CommodityMapper {
 
 	public int updateCommodity(Commodity comm);
 
-	public boolean removeCommodity(Commodity comm);
+	public boolean deleteCommodity(Commodity comm);
 
 	// query
 	/**

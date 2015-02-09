@@ -61,4 +61,7 @@
 		WHERE cid=#{cid}
 	</update>
 
+    <delete id="deleteCommodity" parameterType="Commodity">
+        DELETE FROM commodity WHERE cid = #{cid}
+    </delete>
 </mapper>

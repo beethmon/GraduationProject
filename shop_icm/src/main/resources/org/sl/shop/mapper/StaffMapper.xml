@@ -77,4 +77,8 @@
 		</set>
 	</update>
 
+    <delete id="deleteStaff" parameterType="Staff">
+        DELETE FROM staff WHERE staffid = #{staffid}
+    </delete>
+
 </mapper>

@@ -77,4 +77,8 @@
 		</set>
 		WHERE poiid = #{poiid}
 	</update>
+
+    <delete id="deletePurchaseOrderItem" parameterType="PurchaseOrderItem">
+        DELETE FROM purchaseorderitem WHERE poiid = #{poiid}
+    </delete>
 </mapper>

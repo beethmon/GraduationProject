@@ -6,26 +6,33 @@ import org.sl.shop.mapper.CommodityMapper;
 import org.sl.shop.model.Commodity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class CommodityService {
 
-	@Autowired
-	public CommodityMapper commodityMapper;
+    @Autowired
+    public CommodityMapper commodityMapper;
 
-	public List<Commodity> getCommodity(Commodity comm) {
-		return commodityMapper.getCommodity(comm);
-	}
+    @Transactional(readOnly = true)
+    public List<Commodity> getCommodity(Commodity comm) {
+        return commodityMapper.getCommodity(comm);
+    }
 
-	public void addComodity(Commodity comm) {
-		commodityMapper.addCommodity(comm);
-	}
+    @Transactional
+    public void addCommodity(Commodity comm) {
+        commodityMapper.addCommodity(comm);
+    }
 
-	public boolean updateCommodity(Commodity comm) {
-		if (comm.getCid() == 0)
-			return false;
-		commodityMapper.updateCommodity(comm);
-		return true;
-	}
+    @Transactional
+    public void updateCommodity(Commodity comm) {
+        commodityMapper.updateCommodity(comm);
+    }
+
+    @Transactional
+    public boolean deleteCommodity(Commodity comm) {
+        commodityMapper.deleteCommodity(comm);
+        return true;
+    }
 
 }

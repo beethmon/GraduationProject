@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50619
 File Encoding         : 65001
 
-Date: 2015-02-06 17:09:48
+Date: 2015-02-10 02:16:23
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -72,7 +72,7 @@ DROP TABLE IF EXISTS `refund`;
 CREATE TABLE `refund` (
   `rid` int(11) NOT NULL,
   `cid` int(11) NOT NULL,
-  `num` decimal(10,2) DEFAULT NULL,
+  `num` decimal(20,3) DEFAULT NULL,
   `refundDate` datetime DEFAULT NULL,
   `refund` decimal(20,2) DEFAULT NULL,
   PRIMARY KEY (`rid`),
@@ -100,7 +100,7 @@ CREATE TABLE `salesorderitem` (
   `soiid` int(11) NOT NULL,
   `soid` int(11) NOT NULL,
   `cid` int(11) NOT NULL,
-  `num` int(11) DEFAULT NULL,
+  `num` decimal(20,3) DEFAULT NULL,
   `unitPrice` decimal(10,2) DEFAULT NULL,
   `sum` decimal(20,2) DEFAULT NULL,
   `soiDate` datetime DEFAULT NULL,
@@ -135,7 +135,7 @@ CREATE TABLE `staff` (
 DROP TABLE IF EXISTS `stock`;
 CREATE TABLE `stock` (
   `coid` int(11) NOT NULL,
-  `num` int(11) NOT NULL,
+  `num` decimal(20,3) NOT NULL,
   PRIMARY KEY (`coid`),
   CONSTRAINT `co4co` FOREIGN KEY (`coid`) REFERENCES `commodity` (`cid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
