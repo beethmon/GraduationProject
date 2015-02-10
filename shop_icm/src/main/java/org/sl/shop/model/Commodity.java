@@ -17,7 +17,7 @@ public class Commodity extends QueryExtra{
 	private int cid;
 	// private Supplier supplier;
 	private String cname;
-	private BigDecimal sales_price;
+	private double sales_price;
 	private String about;
 	private String path;
 	private int state;
@@ -46,16 +46,12 @@ public class Commodity extends QueryExtra{
 		this.cname = cname;
 	}
 
-	public BigDecimal getSales_price() {
+	public double getSales_price() {
 		return sales_price;
 	}
 
-	public void setSales_price(BigDecimal sales_price) {
-		this.sales_price = sales_price;
-	}
-
 	public void setSales_price(double sales_price) {
-		this.sales_price = new BigDecimal(sales_price);
+		this.sales_price = sales_price;
 	}
 
 	public String getAbout() {

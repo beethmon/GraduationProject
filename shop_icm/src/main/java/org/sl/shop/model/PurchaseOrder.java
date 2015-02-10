@@ -23,7 +23,7 @@ public class PurchaseOrder extends QueryExtra {
 	private String bno;
 	private List<PurchaseOrderItem> items;
 	private Date poDate;
-	private BigDecimal sum;
+	private double sum;
 	private int state;
 	private boolean wait;
 
@@ -67,11 +67,11 @@ public class PurchaseOrder extends QueryExtra {
 		this.poDate = poDate;
 	}
 
-	public BigDecimal getSum() {
+	public double getSum() {
 		return sum;
 	}
 
-	public void setSum(BigDecimal sum) {
+	public void setSum(double sum) {
 		this.sum = sum;
 	}
 
