@@ -2,7 +2,10 @@ package org.sl.shop.controller;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
+import com.github.pagehelper.Page;
 import org.sl.shop.util.databinder.IntegerEditor;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.beans.propertyeditors.StringTrimmerEditor;
@@ -20,4 +23,13 @@ public class BaseController {
 		binder.registerCustomEditor(String.class, new StringTrimmerEditor(true));
 	}
 
+    protected Map generationJsonMap(Page page) {
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("pages", page.getPages());
+        map.put("index", page.getPageNum());
+        map.put("total", page.getTotal());
+        map.put("pagesize", page.getPageSize());
+        map.put("list", page);
+        return map;
+    }
 }

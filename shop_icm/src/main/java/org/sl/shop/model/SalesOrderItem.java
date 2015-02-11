@@ -1,6 +1,5 @@
 package org.sl.shop.model;
 
-import java.math.BigDecimal;
 import java.util.Date;
 
 import org.sl.shop.util.QueryExtra;
@@ -9,9 +8,9 @@ public class SalesOrderItem extends QueryExtra {
 	private int soiid;
 	private SalesOrder salesOrder;
 	private Commodity comm;
-	private BigDecimal num;
-	private BigDecimal unitPrice;
-	private BigDecimal sum;
+	private double num;
+	private double unitPrice;
+	private double sum;
 	private Date soiDate;
 
 	public int getSoiid() {
@@ -38,31 +37,27 @@ public class SalesOrderItem extends QueryExtra {
 		this.comm = comm;
 	}
 
-	public BigDecimal getNum() {
+	public double getNum() {
 		return num;
 	}
 
-	public void setNum(BigDecimal num) {
+	public void setNum(double num) {
 		this.num = num;
 	}
 
-	public void setNum(int num) {
-		this.num = BigDecimal.valueOf(num);
-	}
-
-	public BigDecimal getUnitPrice() {
+	public double getUnitPrice() {
 		return unitPrice;
 	}
 
-	public void setUnitPrice(BigDecimal unitPrice) {
+	public void setUnitPrice(double unitPrice) {
 		this.unitPrice = unitPrice;
 	}
 
-	public BigDecimal getSum() {
+	public double getSum() {
 		return sum;
 	}
 
-	public void setSum(BigDecimal sum) {
+	public void setSum(double sum) {
 		this.sum = sum;
 	}
 

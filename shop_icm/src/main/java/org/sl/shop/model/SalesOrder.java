@@ -17,7 +17,7 @@ public class SalesOrder extends QueryExtra {
 	private String bno;
 	private List<SalesOrderItem> items;
 	private Date soDate;
-	private BigDecimal sum;
+	private double sum;
 
 	public int getSoid() {
 		return soid;
@@ -51,11 +51,11 @@ public class SalesOrder extends QueryExtra {
 		this.soDate = soDate;
 	}
 
-	public BigDecimal getSum() {
+	public double getSum() {
 		return sum;
 	}
 
-	public void setSum(BigDecimal sum) {
+	public void setSum(double sum) {
 		this.sum = sum;
 	}
 

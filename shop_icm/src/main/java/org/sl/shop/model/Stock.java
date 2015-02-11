@@ -11,7 +11,7 @@ import java.math.BigDecimal;
  */
 public class Stock extends QueryExtra {
 	private Commodity comm;
-	private BigDecimal num;
+	private double num;
 	
 	public Commodity getComm() {
 		return comm;
@@ -19,14 +19,11 @@ public class Stock extends QueryExtra {
 	public void setComm(Commodity comm) {
 		this.comm = comm;
 	}
-	public BigDecimal getNum() {
+	public double getNum() {
 		return num;
 	}
-	public void setNum(BigDecimal num) {
+	public void setNum(double num) {
 		this.num = num;
 	}
-    public void setNum(int num){
-        this.num =BigDecimal.valueOf(num);
-    }
-	
+
 }

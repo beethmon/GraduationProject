@@ -21,7 +21,7 @@ public class Staff extends QueryExtra {
 	private Date birth;
 	private String post;
 	private int isService;
-	private BigDecimal salary;
+	private double salary;
 
 	private User user;
 
@@ -73,11 +73,11 @@ public class Staff extends QueryExtra {
 		this.isService = isService;
 	}
 
-	public BigDecimal getSalary() {
+	public double getSalary() {
 		return salary;
 	}
 
-	public void setSalary(BigDecimal salary) {
+	public void setSalary(double salary) {
 		this.salary = salary;
 	}
 
