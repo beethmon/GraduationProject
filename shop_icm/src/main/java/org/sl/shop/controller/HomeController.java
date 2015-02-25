@@ -26,12 +26,18 @@ import org.springframework.web.bind.annotation.ResponseBody;
  */
 @Controller
 public class HomeController extends BaseController{
-
-
+	
+	@RequestMapping(value = "/")
+	public String index(){
+		return "index";
+	}
+	
+	
+	
 	/**
 	 * Simply selects the home view to render by returning its name.
 	 */
-	@RequestMapping(value = "/")
+	@RequestMapping(value = "/home")
 	public String home(Locale locale, Model model, Commodity commodity) {
 		Date date = new Date();
 		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG,

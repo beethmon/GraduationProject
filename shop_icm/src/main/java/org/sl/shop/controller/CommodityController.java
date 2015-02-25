@@ -21,17 +21,18 @@ public class CommodityController extends BaseController{
 
     @Autowired public CommodityService commodityService;
 
-    @RequestMapping("/view")
+    @RequestMapping("/")
     public String commodityView(){
 
-        return "commodity_view";
+        return "commodity";
     }
 
-    @RequestMapping(value = "/json-{page}-{pagesize}", produces = "application/json")
+    @RequestMapping(value = "/json/{pagesize}/{page}", produces = "application/json")
     @ResponseBody
     public Map<String, Object> getCommodity(@PathVariable("page") int page,
                                             @PathVariable("pagesize") int pagesize,
                                             Commodity commodity) {
+    	System.out.println(commodity);
         PageHelper.startPage(page, pagesize);
         Page<Commodity> p = (Page<Commodity>) commodityService.getCommodity(commodity);
         return generationJsonMap(p);

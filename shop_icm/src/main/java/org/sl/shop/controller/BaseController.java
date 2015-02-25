@@ -6,6 +6,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.github.pagehelper.Page;
+
+import org.sl.shop.util.QueryExtra;
 import org.sl.shop.util.databinder.IntegerEditor;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.beans.propertyeditors.StringTrimmerEditor;
@@ -23,7 +25,7 @@ public class BaseController {
 		binder.registerCustomEditor(String.class, new StringTrimmerEditor(true));
 	}
 
-    protected Map generationJsonMap(Page page) {
+    protected Map<String, Object> generationJsonMap(Page page) {
         Map<String, Object> map = new HashMap<String, Object>();
         map.put("pages", page.getPages());
         map.put("index", page.getPageNum());
