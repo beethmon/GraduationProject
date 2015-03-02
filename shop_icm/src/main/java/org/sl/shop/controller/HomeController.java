@@ -1,39 +1,47 @@
 package org.sl.shop.controller;
 
 import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.Locale;
-import java.util.Map;
 
 import org.sl.shop.model.Commodity;
-import org.sl.shop.util.databinder.IntegerEditor;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.propertyeditors.CustomDateEditor;
-import org.springframework.beans.propertyeditors.CustomNumberEditor;
-import org.springframework.beans.propertyeditors.StringTrimmerEditor;
+import org.sl.shop.model.PurchaseOrderItem;
+import org.sl.shop.model.SalesView;
+import org.sl.shop.model.Stock;
+import org.sl.shop.service.CommodityService;
+import org.sl.shop.service.PurchaseOrderItemService;
+import org.sl.shop.service.StockService;
+import org.sl.shop.util.Orderby;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
 
 /**
  * Handles requests for the application home page.
  */
 @Controller
-public class HomeController extends BaseController{
-	
+public class HomeController extends BaseController {
+
+	@Autowired
+	private StockService stockService;
+	@Autowired
+	private PurchaseOrderItemService purchaseOrderItemService;
+	@Autowired
+	private CommodityService commodityService;
+
 	@RequestMapping(value = "/")
-	public String index(){
+	public String index(Model model) {
+		// 视图数据填充
+		model.addAttribute("stocks", getStock());
+		model.addAttribute("pPurchaseOrderItems", getPurchase());
+		model.addAttribute("salesView", getSalesView());
 		return "index";
 	}
-	
-	
-	
+
 	/**
 	 * Simply selects the home view to render by returning its name.
 	 */
@@ -52,9 +60,41 @@ public class HomeController extends BaseController{
 
 	@RequestMapping("/test")
 	public String test(Model model, Commodity commodity) {
-		System.out.println(commodity);
+		
 		model.addAttribute("commodity", commodity);
 		return "test";
+	}
+
+	private Page<Stock> getStock() {
+		// 设置分页为第1页每页3个
+		PageHelper.startPage(1, 3);
+		// 获取库存最少3个
+		Stock queryStock = new Stock();
+		queryStock.setOrderby(new Orderby("num", Orderby.ASC));
+		Page<Stock> pStocks = (Page<Stock>) stockService.getStock(queryStock);
+		return pStocks;
+	}
+
+	private Page<PurchaseOrderItem> getPurchase() {
+		// 设置分页为第1页每页3个
+		PageHelper.startPage(1, 3);
+		// 获取最近进货的3条
+		PurchaseOrderItem purchaseOrderItem = new PurchaseOrderItem();
+		purchaseOrderItem.setOrderby(new Orderby("poiDate", Orderby.DESC));
+		Page<PurchaseOrderItem> pPurchaseOrderItems = (Page<PurchaseOrderItem>) purchaseOrderItemService
+				.getPurchaseOrderItem(purchaseOrderItem);
+		return pPurchaseOrderItems;
+	}
+
+	private Page<SalesView> getSalesView() {
+		// 设置分页为第1页每页3个
+		PageHelper.startPage(1, 3);
+		// 获取本天热销
+		Commodity queryComm = new Commodity();
+		queryComm.setOrderby(new Orderby("num", Orderby.DESC));
+		Page<SalesView> salesView = (Page<SalesView>) commodityService
+				.getCommoditySalesView(queryComm);
+		return salesView;
 	}
 
 }

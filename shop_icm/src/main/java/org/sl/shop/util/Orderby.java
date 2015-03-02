@@ -4,8 +4,15 @@ public class Orderby {
 	public static final String ASC = "ASC";
 	public static final String DESC = "DESC";
 
-	private String orderby;
 	private String colname;
+	private String orderby;
+
+	
+	public Orderby(String colname,String orderby) {
+		super();
+		this.colname = colname;
+		this.orderby = orderby;
+	}
 
 	public String getOrderby() {
 		return orderby;

@@ -21,6 +21,7 @@ public class Commodity extends QueryExtra{
 	private String about;
 	private String path;
 	private int state;
+	private String ccodes;
 
 	public int getCid() {
 		return cid;
@@ -78,6 +79,14 @@ public class Commodity extends QueryExtra{
 		this.state = state;
 	}
 
+	public String getCcodes() {
+		return ccodes;
+	}
+
+	public void setCcodes(String ccodes) {
+		this.ccodes = ccodes;
+	}
+
 	@Override
 	public String toString() {
 		// String strSupplier = supplier != null ? supplier.toString() : "null";
@@ -86,7 +95,7 @@ public class Commodity extends QueryExtra{
 		String strPath = path != null ? ("\"" + path + "\"") : "null";
 		return "{cid:" + cid + ",cname:" + strCname + ",sales_price:"
 				+ sales_price + ",about:" + strAbout + ",path:" + strPath
-				+ ",state:" + state + "}";
+				+ ",state:" + state +",ccodes:"+ccodes+ "}";
 	}
 
 }

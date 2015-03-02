@@ -12,7 +12,7 @@ import java.util.List;
 public class RefundService {
 
     @Autowired
-    public RefundMapper refundMapper;
+    private RefundMapper refundMapper;
 
     @Transactional(readOnly = true)
     public List<Refund> getRefund(Refund refund) {

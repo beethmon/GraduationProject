@@ -9,7 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class SupplierService {
-    public SupplierMapper supplierMapper;
+	private SupplierMapper supplierMapper;
 
     @Transactional(readOnly = true)
     public List<Supplier> getSupplier(Supplier supplier) {

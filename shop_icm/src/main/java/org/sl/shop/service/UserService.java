@@ -12,7 +12,7 @@ import java.util.List;
 public class UserService {
 
     @Autowired
-    public UserMapper userMapper;
+    private UserMapper userMapper;
 
     @Transactional(readOnly = true)
     public User Login(User user){

@@ -14,7 +14,7 @@ import java.util.List;
 public class StockService {
 
     @Autowired
-    public StockMapper stockMapper;
+    private StockMapper stockMapper;
 
     @Transactional(readOnly = true)
     public List<Stock> getStock(Stock stock) {

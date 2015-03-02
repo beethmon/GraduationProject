@@ -14,9 +14,9 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 public class SalesOrderService {
     @Autowired
-    public SalesOrderMapper salesOrderMapper;
+    private SalesOrderMapper salesOrderMapper;
     @Autowired
-    public SalesOrderItemMapper salesOrderItemMapper;
+    private SalesOrderItemMapper salesOrderItemMapper;
 
     @Transactional(readOnly = true)
     public List<SalesOrder> getSalesOrder(SalesOrder salesOrder) {

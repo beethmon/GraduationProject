@@ -3,7 +3,9 @@ package org.sl.shop.service;
 import java.util.List;
 
 import org.sl.shop.mapper.CommodityMapper;
+import org.sl.shop.mapper.ViewMapper;
 import org.sl.shop.model.Commodity;
+import org.sl.shop.model.SalesView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -12,11 +14,18 @@ import org.springframework.transaction.annotation.Transactional;
 public class CommodityService {
 
     @Autowired
-    public CommodityMapper commodityMapper;
+    private CommodityMapper commodityMapper;
+    @Autowired 
+    private ViewMapper vMapper;
 
     @Transactional(readOnly = true)
     public List<Commodity> getCommodity(Commodity comm) {
         return commodityMapper.getCommodity(comm);
+    }
+    
+    @Transactional(readOnly = true)
+    public List<SalesView> getCommoditySalesView(Commodity comm){
+    	return vMapper.getCommoditySaleView(comm);
     }
 
     @Transactional

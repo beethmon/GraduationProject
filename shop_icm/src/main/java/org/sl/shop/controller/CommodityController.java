@@ -17,24 +17,25 @@ import java.util.Map;
  */
 @Controller
 @RequestMapping("/commodity")
-public class CommodityController extends BaseController{
+public class CommodityController extends BaseController {
 
-    @Autowired public CommodityService commodityService;
+	@Autowired
+	private CommodityService commodityService;
 
-    @RequestMapping("/")
-    public String commodityView(){
+	@RequestMapping("/")
+	public String commodityView() {
 
-        return "commodity";
-    }
+		return "commodity";
+	}
 
-    @RequestMapping(value = "/json/{pagesize}/{page}", produces = "application/json")
-    @ResponseBody
-    public Map<String, Object> getCommodity(@PathVariable("page") int page,
-                                            @PathVariable("pagesize") int pagesize,
-                                            Commodity commodity) {
-    	System.out.println(commodity);
-        PageHelper.startPage(page, pagesize);
-        Page<Commodity> p = (Page<Commodity>) commodityService.getCommodity(commodity);
-        return generationJsonMap(p);
-    }
+	@RequestMapping(value = "/json/{pagesize}/{page}", produces = "application/json")
+	@ResponseBody
+	public Map<String, Object> getCommodity(@PathVariable("page") int page,
+			@PathVariable("pagesize") int pagesize, Commodity commodity) {
+		System.out.println(commodity);
+		PageHelper.startPage(page, pagesize);
+		Page<Commodity> p = (Page<Commodity>) commodityService
+				.getCommodity(commodity);
+		return generationJsonMap(p);
+	}
 }

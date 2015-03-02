@@ -16,8 +16,8 @@
 		stock
 		INNER JOIN commodity ON stock.coid = commodity.cid
 		<where>
-			<if test="coid != 0">
-				stock.coid = #{coid}
+			<if test="comm != null and comm.cid != 0">
+				stock.coid = #{comm.cid}
 			</if>
 			<if test="comm != null and comm.cname !=''">
 				AND commodity.cname LIKE CONCAT(CONCAT('%',
@@ -31,7 +31,7 @@
 	<insert id="addStock" parameterType="Stock">
 		INSERT INTO
 		stock
-		(cid,num)
+		(coid,num)
 		VALUES
 		(#{comm.cid},#{num})
 	</insert>
@@ -39,7 +39,7 @@
 	<update id="updateStock" parameterType="Stock">
 		UPDATE stock
 		<set>
-			<if test="comm != null and comm.id != 0">
+			<if test="comm != null and comm.cid != 0">
 				cid = #{comm.cid},
 			</if>
 			<if test="num != 0">

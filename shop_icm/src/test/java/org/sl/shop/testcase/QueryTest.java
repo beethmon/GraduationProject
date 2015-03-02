@@ -17,12 +17,14 @@ import org.sl.shop.mapper.StaffMapper;
 import org.sl.shop.mapper.StockMapper;
 import org.sl.shop.mapper.SupplierMapper;
 import org.sl.shop.mapper.UserMapper;
+import org.sl.shop.mapper.ViewMapper;
 import org.sl.shop.model.Commodity;
 import org.sl.shop.model.PurchaseOrder;
 import org.sl.shop.model.PurchaseOrderItem;
 import org.sl.shop.model.Refund;
 import org.sl.shop.model.SalesOrder;
 import org.sl.shop.model.SalesOrderItem;
+import org.sl.shop.model.SalesView;
 import org.sl.shop.model.Staff;
 import org.sl.shop.model.Stock;
 import org.sl.shop.model.Supplier;
@@ -59,6 +61,8 @@ public class QueryTest {
 	StaffMapper sfMapper;
 	@Autowired
 	UserMapper uMapper;
+	@Autowired
+	ViewMapper vMapper;
 
 	@Test
 	public void testCommodity() {
@@ -190,6 +194,20 @@ public class QueryTest {
 		System.out.println("===========================\n");
 		System.out.println("UserMapper");
 		List<User> list = this.uMapper.getAllUser(null);
+		if (list.size() > 0) {
+			System.out.println(beanToJson(list.get(0)));
+		} else {
+			System.out.println("is null");
+		}
+		System.out.println();
+		System.out.println("\n===========================");
+	}
+	
+	@Test
+	public void testSalesView(){
+		System.out.println("===========================\n");
+		System.out.println("ViewMapper");
+		List<SalesView> list = this.vMapper.getCommoditySaleView(null);
 		if (list.size() > 0) {
 			System.out.println(beanToJson(list.get(0)));
 		} else {

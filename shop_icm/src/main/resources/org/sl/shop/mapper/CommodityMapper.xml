@@ -11,7 +11,8 @@
 		commodity.sales_price,
 		commodity.about,
 		commodity.path,
-		commodity.state
+		commodity.state,
+		commodity.ccodes
 		FROM
 		commodity
 		<where>
@@ -25,6 +26,9 @@
 				AND commodity.cname LIKE CONCAT(CONCAT('%',
 				#{cname}),'%')
 			</if>
+			<if test="ccodes != null and ccodes != ''">
+				AND commodity.ccodes = #{ccodes}
+			</if>
 			<include refid="org.sl.shop.mapper.extra.range"/>
 		</where>
 		<include refid="org.sl.shop.mapper.extra.orderby"/>
@@ -33,16 +37,16 @@
 	<insert id="addCommodity" parameterType="Commodity">
 		INSERT INTO
 		commodity
-		(cname,sales_price,about,path,state)
+		(cname,sales_price,about,path,state,ccodes)
 		VALUES
-		(#{cname},#{sales_price},#{about},#{path},#{state})
+		(#{cname},#{sales_price},#{about},#{path},#{state},#{ccodes})
 	</insert>
 
 
 	<update id="updateCommodity" parameterType="Commodity">
 		UPDATE commodity
 		<set>
-			<if test="cname != null">
+			<if test="cname != null and cname != ''">
 				cname = #{cname},
 			</if>
 			<if test="sales_price != 0">
@@ -56,6 +60,9 @@
 			</if>
 			<if test="state*state == 1">
 				state = #{state}
+			</if>
+			<if test="ccodes !=null and ccodes != ''">
+				ccodes = #{ccodes}
 			</if>
 		</set>
 		WHERE cid=#{cid}

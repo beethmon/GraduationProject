@@ -11,7 +11,7 @@ import java.util.List;
 @Service
 public class StaffService {
     @Autowired
-    public StaffMapper staffMapper;
+    private StaffMapper staffMapper;
 
     @Transactional(readOnly = true)
     public List<Staff> getStaff(Staff staff) {

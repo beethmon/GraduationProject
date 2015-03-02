@@ -26,7 +26,7 @@ public class ServiceTest {
     @Test
     public void testCommodity(){
     	System.out.println("测试CommodityService");
-    	System.out.println(commodityService.commodityMapper==null);
+    	System.out.println(commodityService==null);
     }
     
 

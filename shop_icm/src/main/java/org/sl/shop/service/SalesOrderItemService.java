@@ -12,7 +12,7 @@ import java.util.List;
 public class SalesOrderItemService {
 
     @Autowired
-    public SalesOrderItemMapper salesOrderItemMapper;
+    private SalesOrderItemMapper salesOrderItemMapper;
 
     @Transactional(readOnly = true)
     public List<SalesOrderItem> getSalesOrderItem(SalesOrderItem salesOrderItem){
