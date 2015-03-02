@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.sl.shop.mapper.ViewMapper">
+	<select id="getCommoditySaleView" parameterType="Commodity"
+		resultMap="org.sl.shop.mapper.ResultMap.salesViewResultMap">
+		SELECT * FROM statusofsales
+		<where>
+			<if test="cid != null and cid != 0">
+				cid=#{cid}
+			</if>
+			<if test="state*state == 1">
+				AND state=#{state}
+			</if>
+			<if test="cname != null and cname != ''">
+				AND cname LIKE CONCAT(CONCAT('%',
+				#{cname}),'%')
+			</if>
+			<if test="ccodes != null and ccodes != ''">
+				AND ccodes = #{ccodes}
+			</if>
+			<include refid="org.sl.shop.mapper.extra.range"/>
+		</where>
+		<include refid="org.sl.shop.mapper.extra.orderby"/>
+	</select>
+</mapper>
