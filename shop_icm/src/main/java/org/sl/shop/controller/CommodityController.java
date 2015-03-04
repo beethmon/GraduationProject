@@ -28,10 +28,16 @@ public class CommodityController extends BaseController {
 	@Autowired
 	private CommodityService commodityService;
 	
-
-	@RequestMapping("/")
-	public String commodityView() {
-
+	
+	@RequestMapping(value = "")
+	public String commodityView(Model model,HttpServletRequest request){
+		String contextPath = request.getContextPath();
+		String path = request.getServletPath();
+		System.out.println("//"+path);
+		//Page<Commodity> p = getCommodities(1,12,null);
+		//model.addAttribute("p", p);
+		model.addAttribute("contextPath", contextPath);
+		model.addAttribute("path",path);
 		return "commodity";
 	}
 
@@ -51,15 +57,6 @@ public class CommodityController extends BaseController {
 		PageHelper.startPage(page, pagesize);
 		Page<SalesView> p = (Page<SalesView>) commodityService.getCommoditySalesView(commodity);
 		return generationJsonMap(p);
-	}
-	
-	@RequestMapping(value = "/info")
-	public String info(Model model,HttpServletRequest request){
-		String contextPath = request.getContextPath();
-		Page<Commodity> p = getCommodities(1,12,null);
-		model.addAttribute("contextPath", contextPath);
-		model.addAttribute("p", p);
-		return "commodity_info";
 	}
 	
 	private Page<Commodity> getCommodities(int page,int pagesize, Commodity query){
