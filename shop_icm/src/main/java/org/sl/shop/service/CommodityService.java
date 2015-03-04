@@ -25,7 +25,7 @@ public class CommodityService {
     
     @Transactional(readOnly = true)
     public List<SalesView> getCommoditySalesView(Commodity comm){
-    	return vMapper.getCommoditySaleView(comm);
+    	return vMapper.getCommoditySalesView(comm);
     }
 
     @Transactional

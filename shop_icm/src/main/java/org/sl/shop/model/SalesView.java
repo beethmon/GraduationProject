@@ -2,7 +2,9 @@ package org.sl.shop.model;
 
 import java.util.Date;
 
-public class SalesView {
+import org.sl.shop.util.QueryExtra;
+
+public class SalesView extends QueryExtra {
 	private Commodity commodity;
 	private double num;
 	private double sum;

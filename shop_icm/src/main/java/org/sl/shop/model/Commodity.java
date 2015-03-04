@@ -1,6 +1,5 @@
 package org.sl.shop.model;
 
-import java.math.BigDecimal;
 
 import org.sl.shop.util.QueryExtra;
 
@@ -22,6 +21,8 @@ public class Commodity extends QueryExtra{
 	private String path;
 	private int state;
 	private String ccodes;
+	private double num;
+	
 
 	public int getCid() {
 		return cid;
@@ -85,6 +86,14 @@ public class Commodity extends QueryExtra{
 
 	public void setCcodes(String ccodes) {
 		this.ccodes = ccodes;
+	}
+	
+	public double getNum() {
+		return num;
+	}
+
+	public void setNum(double num) {
+		this.num = num;
 	}
 
 	@Override

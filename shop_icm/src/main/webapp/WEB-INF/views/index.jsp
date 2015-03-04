@@ -30,7 +30,7 @@
 						class="uk-icon-archive"></i>商品</a>
 					<div class="uk-dropdown uk-dropdown-navbar">
 						<ul class="uk-nav uk-nav-navbar">
-							<li><a href="">商品信息</a></li>
+							<li><a href="comodity_info">商品信息</a></li>
 							<li><a href="">商品管理</a></li>
 						</ul>
 					</div></li>
@@ -69,7 +69,7 @@
 			<div class="tm-context">
 				<div class="uk-grid uk-grid-match" data-uk-grid-margin>
 					<div class="uk-width-medium-1-2 uk-width-small-1-1">
-						<div class="uk-panel uk-panel-box uk-flex uk-flex-middle tm-pb">
+						<div class="uk-panel uk-panel-box uk-flex tm-pb">
 							<a href="">
 								<div class="tm-pb-pic">
 									<i class="uk-icon-archive"></i>
@@ -79,7 +79,7 @@
 							<div class="tm-pb-text">
 								<h3 class="uk-panel-title">库存少的商品:</h3>
 								<table class="uk-table">
-									<c:forEach var="stock" items="${stocks}" begin="0" end="3">
+									<c:forEach var="stock" items="${stocks}" begin="0" end="2">
 										<tr>
 											<td><c:out value="${stock.comm.cname}"></c:out></td>
 											<td><c:out value="${stock.num}"></c:out>(个/瓶/kg)</td>
@@ -90,7 +90,7 @@
 						</div>
 					</div>
 					<div class="uk-width-medium-1-2 uk-width-small-1-1">
-						<div class="uk-panel uk-panel-box uk-flex uk-flex-middle tm-pb">
+						<div class="uk-panel uk-panel-box uk-flex tm-pb">
 							<a href="">
 								<div class="tm-pb-pic">
 									<i class="uk-icon-truck"></i>
@@ -99,18 +99,21 @@
 							</a>
 							<div class="tm-pb-text">
 								<h3 class="uk-panel-title">最近进货:</h3>
-								<ul>
-									<li>01</li>
-									<li>02</li>
-									<li>03</li>
-								</ul>
+								<c:forEach var="poi" items="${pPurchaseOrderItems}" begin="0"
+										end="3">
+										<tr>
+											<td><c:out value="${poi.comm.cname}"></c:out></td>
+											<td><c:out value="${poi.num}"></c:out>(个/瓶/kg)</td>
+											<td><c:out value="${poi.sum}"></c:out>元</td>
+										</tr>
+									</c:forEach>
 							</div>
 						</div>
 					</div>
 				</div>
 				<div class="uk-grid uk-grid-match" data-uk-grid-margin>
 					<div class="uk-width-medium-1-2 uk-width-small-1-1">
-						<div class="uk-panel uk-panel-box uk-flex uk-flex-middle tm-pb">
+						<div class="uk-panel uk-panel-box uk-flex tm-pb">
 							<a href="">
 								<div class="tm-pb-pic">
 									<i class="uk-icon-shopping-cart"></i>
@@ -133,7 +136,7 @@
 						</div>
 					</div>
 					<div class="uk-width-medium-1-2 uk-width-small-1-1">
-						<div class="uk-panel uk-panel-box uk-flex uk-flex-middle tm-pb">
+						<div class="uk-panel uk-panel-box uk-flex tm-pb">
 							<a href="">
 								<div class="tm-pb-pic">
 									<i class="uk-icon-group"></i>

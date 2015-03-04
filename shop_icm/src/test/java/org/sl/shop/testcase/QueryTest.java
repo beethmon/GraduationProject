@@ -207,7 +207,7 @@ public class QueryTest {
 	public void testSalesView(){
 		System.out.println("===========================\n");
 		System.out.println("ViewMapper");
-		List<SalesView> list = this.vMapper.getCommoditySaleView(null);
+		List<SalesView> list = this.vMapper.getCommoditySalesView(null);
 		if (list.size() > 0) {
 			System.out.println(beanToJson(list.get(0)));
 		} else {
