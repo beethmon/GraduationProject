@@ -26,32 +26,29 @@
 			<ul class="uk-navbar-nav">
 				<li class="uk-active"><a href=""><i class="uk-icon-home"></i>首页</a>
 				</li>
-				<li class="uk-parent" data-uk-dropdown><a href="commodity"><i
-						class="uk-icon-archive"></i>商品</a>
-					<div class="uk-dropdown uk-dropdown-navbar">
-						<ul class="uk-nav uk-nav-navbar">
-							<li><a href="comodity_info">商品信息</a></li>
-							<li><a href="">商品管理</a></li>
-						</ul>
-					</div></li>
-				<li class="uk-parent" data-uk-dropdown><a href=""><i
-						class="uk-icon-truck"></i>进货</a>
+				<li class="uk-parent" data-uk-dropdown>
+					<a href="commodity"><i class="uk-icon-archive"></i>商品</a>
+				</li>
+				<li class="uk-parent" data-uk-dropdown>
+					<a href=""><i class="uk-icon-truck"></i>进货</a>
 					<div class="uk-dropdown uk-dropdown-navbar">
 						<ul class="uk-nav uk-nav-navbar">
 							<li><a href="">信息统计</a></li>
 							<li><a href="">订单管理</a></li>
 							<li><a href="">进货</a></li>
 						</ul>
-					</div></li>
-				<li class="uk-parent" data-uk-dropdown><a href=""><i
-						class="uk-icon-shopping-cart"></i>售货</a>
+					</div>
+				</li>
+				<li class="uk-parent" data-uk-dropdown>
+					<a href=""><i class="uk-icon-shopping-cart"></i>售货</a>
 					<div class="uk-dropdown uk-dropdown-navbar">
 						<ul class="uk-nav uk-nav-navbar">
 							<li><a href="">信息统计</a></li>
 							<li><a href="">销售管理</a></li>
 							<li><a href="">销售</a></li>
 						</ul>
-					</div></li>
+					</div>
+				</li>
 				<li class="uk-parent"><a href=""><i class="uk-icon-group"></i>雇员</a>
 				</li>
 				<li class="uk-parent"><a href=""><i class="uk-icon-user"></i>登入</a>
@@ -70,7 +67,7 @@
 				<div class="uk-grid uk-grid-match" data-uk-grid-margin>
 					<div class="uk-width-medium-1-2 uk-width-small-1-1">
 						<div class="uk-panel uk-panel-box uk-flex tm-pb">
-							<a href="">
+							<a href="commodity">
 								<div class="tm-pb-pic">
 									<i class="uk-icon-archive"></i>
 									<div>商 品</div>
