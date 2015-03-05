@@ -4,6 +4,9 @@ package org.sl.shop.model;
 import java.util.Date;
 
 import org.sl.shop.util.QueryExtra;
+import org.springframework.format.annotation.DateTimeFormat;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 public class PurchaseOrderItem extends QueryExtra {
 	private int poiid;
@@ -62,7 +65,8 @@ public class PurchaseOrderItem extends QueryExtra {
 	public void setSum(double sum) {
 		this.sum = sum;
 	}
-
+	@DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")  
+	@JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone = "GMT+8") 
 	public Date getPuDate() {
 		return poiDate;
 	}

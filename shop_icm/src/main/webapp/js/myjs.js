@@ -1,3 +1,24 @@
+//form to json
+(function($){
+    $.fn.serializeJson=function(){
+        var serializeObj={};
+        var array=this.serializeArray();
+        var str=this.serialize();
+        $(array).each(function(){
+            if(serializeObj[this.name]){
+                if($.isArray(serializeObj[this.name])){
+                    serializeObj[this.name].push(this.value);
+                }else{
+                    serializeObj[this.name]=[serializeObj[this.name],this.value];
+                }
+            }else{
+                serializeObj[this.name]=this.value;
+            }
+        });
+        return serializeObj;
+    };
+})(jQuery);
+
 $(function() {
 	console.log("test");
 	var toggle = $(".tm-toggle-icon");
@@ -9,7 +30,6 @@ $(function() {
 		page.css("left", "210px");
 		toggle.css("opacity", 0);
 		setTimeout(function() {
-			console.log(flag);
 			if (flag)
 				sidebar.css("z-index", 1003);
 		}, 300);
@@ -53,7 +73,6 @@ function getDataWithAjax(url, query, fun_do) {
  *            显示的列 Array<string,string>
  */
 function fillingDataWith_UK_Panel(location, json, tname, displayAttrs) {
-	console.log("进行数据填充");
 	$("#context").remove();
 	// 获取json属性名
 	var data = json;
@@ -66,7 +85,6 @@ function fillingDataWith_UK_Panel(location, json, tname, displayAttrs) {
 		return tmp;
 	})(list[0]);
 
-	console.log(jsonAttrName);
 	// 寻找插入位置
 
 	var dataContext = $(location);
@@ -75,12 +93,12 @@ function fillingDataWith_UK_Panel(location, json, tname, displayAttrs) {
 	// 创建items
 
 	for (var i = 0; i < list.length; i++) {
-		console.log("item填充" + (i + 1));
 		var item = list[i];
 		var id = "item" + (i + 1);
 		var itemContext = $("<div id=\""
 				+ id
-				+ "\" class=\"uk-width-small-1-2 uk-width-medium-1-3 uk-flex\"></div>");
+				+ "\" class=\"uk-width-small-1-2 uk-width-medium-1-3 uk-flex"
+				+" uk-scrollspy-init-inview uk-scrollspy-inview uk-animation-scale-up\"></div>");
 		// 创建uk-panel
 		var panel = $("<div class=\"uk-panel uk-panel-box\">");
 		var title = $("<h3 class=\"uk-panel-title\"></h3>");
@@ -107,13 +125,17 @@ function fillingDataWith_UK_Panel(location, json, tname, displayAttrs) {
 		panel.append(table);
 		itemContext.append(panel);
 		context.append(itemContext);
+        //绑定方法
+        itemContext.bind("click",function(){
+            $.UIkit.modal("#update").show();
+        });
+
 	}
 	dataContext.append(context);
 	context.uk("gridMargin");
 }
 
 function fillingDataWithTable(location, json, tname, displayAttrs) {
-	console.log("进行数据填充");
 	$("#context").remove();
 	var data = json;
 	var list = json["list"];
@@ -140,11 +162,9 @@ function fillingDataWithTable(location, json, tname, displayAttrs) {
 		thead.append($("<td></td>").html(attrs[key]));
 	}
 	// 填充数据
-	console.log(attrs);
 	for (var i = 0; i < list.length; i++) {
 		var item = list[i];
 		var id = "item" + (i + 1);
-		console.log(item);
 		var tr = $("<tr id=\"" + id + "\"></tr>");
 		tr.append($("<td></td>").html(item[tname]));
 		for ( var key in attrs) {
@@ -172,19 +192,24 @@ function dataEscape(arr) {
 }
 
 // 翻页插件
-function pageInit(url, query, json, displayFun2) {
-	var pagePlugin = $(".uk-pagination");
-	var pagination = $.UIkit.pagination(pagePlugin, {
-		pages : json["pages"]
+function pageInit(url, query, tjson, displayFun2) {
+	$(".uk-pagination").remove();
+	var pagePlugin = $("<ul class=\"uk-pagination\"></ul>");
+	$("#page-context").append(pagePlugin);
+	var pagination = $.UIkit.pagination($(".uk-pagination"), {
+		pages       : tjson["pages"]
 	});
+	pagination.off('select.uk.pagination');
 	pagination.on('select.uk.pagination', function(e, pageIndex) {
 		console.log('You have selected page: ' + (pageIndex + 1));
 		getDataWithAjax(url + (pageIndex + 1), query, function(data) {
+			$.scrollTo(0,250);
 			dataEscape(data["list"]);
+			console.log(query);
 			defaultDisplay("#data-context", data, tname, colname);
-			window.scrollTo(0,0);
 		});
 	});
+	
 }
 
 function search(url, query, tname, colname, displayFun) {
@@ -192,5 +217,7 @@ function search(url, query, tname, colname, displayFun) {
 		dataEscape(data["list"]);
 		displayFun("#data-context", data, tname, colname);
 		pageInit(url, query, data, displayFun);
-	})
+	});
 }
+
+

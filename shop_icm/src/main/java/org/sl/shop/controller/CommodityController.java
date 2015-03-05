@@ -8,6 +8,7 @@ import org.sl.shop.model.Commodity;
 import org.sl.shop.model.SalesView;
 import org.sl.shop.service.CommodityService;
 import org.sl.shop.service.StockService;
+import org.sl.shop.util.Orderby;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -46,6 +47,7 @@ public class CommodityController extends BaseController {
 	public Map<String, Object> getCommodity(@PathVariable("page") int page,
 			@PathVariable("pagesize") int pagesize, Commodity commodity) {
 		System.out.println(commodity);
+		commodity.setOrderby(new Orderby("cid",Orderby.DESC));
 		Page<Commodity> p = getCommodities(page, pagesize, commodity);
 		return generationJsonMap(p);
 	}
@@ -55,6 +57,7 @@ public class CommodityController extends BaseController {
 	public Map<String, Object> getSalesView(@PathVariable("page") int page,
 			@PathVariable("pagesize") int pagesize, Commodity commodity) {
 		PageHelper.startPage(page, pagesize);
+		commodity.setOrderby(new Orderby("cid",Orderby.DESC));
 		Page<SalesView> p = (Page<SalesView>) commodityService.getCommoditySalesView(commodity);
 		return generationJsonMap(p);
 	}
@@ -63,4 +66,7 @@ public class CommodityController extends BaseController {
 		PageHelper.startPage(page, pagesize);
 		return (Page<Commodity>) commodityService.getCommodity(query);
 	}
+	
+	
+	
 }

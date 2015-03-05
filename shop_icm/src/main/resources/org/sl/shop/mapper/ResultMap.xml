@@ -157,7 +157,7 @@
 		<result property="num" column="num" />
 		<result property="sum" column="sum" />
 		<result property="unitPrice" column="unitPrice" />
-		<result property="poiDate" column="poiDate" />
+		<result property="soiDate" column="soiDate" />
 		<association property="commodity" column="cid" javaType="Commodity"
 			resultMap="commodityResultMap" />
 	</resultMap>

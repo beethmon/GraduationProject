@@ -3,6 +3,9 @@ package org.sl.shop.model;
 import java.util.Date;
 
 import org.sl.shop.util.QueryExtra;
+import org.springframework.format.annotation.DateTimeFormat;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 public class SalesView extends QueryExtra {
 	private Commodity commodity;
@@ -34,6 +37,8 @@ public class SalesView extends QueryExtra {
 	public void setUnitPrice(double unitPrice) {
 		this.unitPrice = unitPrice;
 	}
+	@DateTimeFormat(pattern="yyyy-MM-dd")  
+	@JsonFormat(pattern="yyyy-MM-dd",timezone = "GMT+8")
 	public Date getSoiDate() {
 		return soiDate;
 	}

@@ -5,6 +5,9 @@ import java.util.Date;
 import java.util.List;
 
 import org.sl.shop.util.QueryExtra;
+import org.springframework.format.annotation.DateTimeFormat;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 /**
  * 采购单
@@ -58,7 +61,9 @@ public class PurchaseOrder extends QueryExtra {
 	public void setItems(List<PurchaseOrderItem> items) {
 		this.items = items;
 	}
-
+	
+	@DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")  
+	@JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone = "GMT+8") 
 	public Date getPoDate() {
 		return poDate;
 	}

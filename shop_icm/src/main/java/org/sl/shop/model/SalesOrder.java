@@ -1,10 +1,12 @@
 package org.sl.shop.model;
 
-import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
 import org.sl.shop.util.QueryExtra;
+import org.springframework.format.annotation.DateTimeFormat;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 /**
  * 销售单
@@ -42,7 +44,8 @@ public class SalesOrder extends QueryExtra {
 	public void setItmes(List<SalesOrderItem> items) {
 		this.items = items;
 	}
-
+	@DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")  
+	@JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone = "GMT+8") 
 	public Date getPoDate() {
 		return soDate;
 	}

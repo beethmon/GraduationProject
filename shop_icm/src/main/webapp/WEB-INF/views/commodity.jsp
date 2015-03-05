@@ -13,6 +13,7 @@
 	href="${contextPath }/css/custom.css">
 
 <script src="${contextPath }/js/jquery-1.11.1.js"></script>
+<script src="${contextPath }/js/jquery.scrollTo.js"></script>
 <script src="${contextPath }/js/uikit.js"></script>
 <script src="${contextPath }/js/components/pagination.js"></script>
 <script src="${contextPath }/js/myjs.js"></script>
@@ -24,8 +25,29 @@
 	var colname = {"ccodes":"CCodes","sales_price":"单价(￥)","num":"库存(个/kg)","state":"状态"};
 	var defaultDisplay = fillingDataWith_UK_Panel;
 	var tname = "cname";
-	var query = {};
-	search(url, null, tname, colname, defaultDisplay);
+	var gquery = {};
+	$(function(){
+		search(url, null, tname, colname, defaultDisplay);
+        // 绑定搜索的表单事件
+		$("#search").submit(function(){
+			var query = $(this).serializeJson();
+			gquery = query;
+			search(url, query, tname, colname, defaultDisplay);
+			return false;
+		});
+        // 新增/修改窗体打开与关闭事件事件
+        $('#insert').on({
+            'show.uk.modal': function(e){
+                console.log("Modal is visible.");
+                console.log(e);
+            },
+            'hide.uk.modal': function(){
+                console.log("Element is not visible.");
+                $("#insert_form input[type='reset']").click();
+            }
+        });
+
+	});
 	
 	
 </script>
@@ -79,14 +101,113 @@
 				</div>
 			</div>
 			<div class="tm-context">
+				<!-- search -->
+
+					<div class="uk-grid">
+						<div class="uk-width-1-2 uk-container-center">
+                            <form id="search" action="" class="uk-form uk-form-horizontal">
+                                <div class="uk-form-row">
+                                    <input type="text" id="search_cname" class="uk-width-3-4" name="cname" placeholder="Commodity name">
+                                    <button class="uk-button">Search</button>
+                                </div>
+                            </form>
+						</div>
+					</div>
+
 				<!-- 数据容器 -->
-				<div id="data-context" style="min-height: 600px;margin:15px 0;">
+				<div id="data-context" style="min-height: 550px;margin:15px 0;">
 					
 				</div>
 				<!-- 翻页插件 -->
 				<div id="page-context">
 					<ul class="uk-pagination"></ul>
 				</div>
+				<div>
+					<i class="uk-icon-button uk-icon-large uk-icon-plus-circle" style="color:#ea4a61;position:fixed;bottom:70px;right:70px;" data-uk-modal="{target:'#insert'}"></i>
+				</div>
+                <div class="tm-plugin">
+                    <div id="insert" class="uk-modal">
+                        <div class="uk-modal-dialog">
+                            <a class="uk-modal-close uk-close" href=""></a>
+                            <h1>新增</h1>
+                            <form id="insert_form" type="ajax" action="" class="uk-form uk-form-horizontal">
+                                <div class="uk-form-row">
+                                    <label class="uk-form-label" for="cname">商品名</label>
+                                    <div class="uk-form-controls">
+                                        <input type="text" id="cname" name="cname" placeholder="Commodity name">
+                                    </div>
+                                </div>
+                                <div class="uk-form-row">
+                                    <label class="uk-form-label" for="sales_price">价格</label>
+                                    <div class="uk-form-controls">
+                                        <input type="text" id="sales_price" name="sales_price" placeholder="Sales price">
+                                    </div>
+                                </div>
+                                <div class="uk-form-row">
+                                    <label class="uk-form-label" for="">状态</label>
+                                    <div class="uk-form-controls">
+                                        <input type="radio" id="form-s-r1" name="radio" value="1">
+                                        <label for="form-s-r1">在售</label>
+                                        <label><input type="radio" name="radio" value="-1">下架</label>
+                                    </div>
+                                </div>
+                                <div class="uk-form-row">
+                                    <label class="uk-form-label" for="stock">库存</label>
+                                    <div class="uk-form-controls">
+                                        <input type="number" id="stock" name="Num" placeholder="0.000">
+                                    </div>
+                                </div>
+                                <div class="uk-form-row">
+                                    <div class="uk-form-controls">
+                                        <button class="uk-button uk-button-success">Submit</button>
+                                        <input type="reset" class="uk-button" value="Reset"/>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div id="update" class="uk-modal">
+                    <div class="uk-modal-dialog">
+                        <a class="uk-modal-close uk-close" href=""></a>
+                        <h1>新增</h1>
+                        <form id="insert_form" type="ajax" action="" class="uk-form uk-form-horizontal">
+                            <div class="uk-form-row">
+                                <label class="uk-form-label" for="cname">商品名</label>
+                                <div class="uk-form-controls">
+                                    <input type="text" id="cname" name="cname" placeholder="Commodity name">
+                                </div>
+                            </div>
+                            <div class="uk-form-row">
+                                <label class="uk-form-label" for="sales_price">价格</label>
+                                <div class="uk-form-controls">
+                                    <input type="text" id="sales_price" name="sales_price" placeholder="Sales price">
+                                </div>
+                            </div>
+                            <div class="uk-form-row">
+                                <label class="uk-form-label" for="">状态</label>
+                                <div class="uk-form-controls">
+                                    <input type="radio" id="form-s-r1" name="radio" value="1">
+                                    <label for="form-s-r1">在售</label>
+                                    <label><input type="radio" name="radio" value="-1">下架</label>
+                                </div>
+                            </div>
+                            <div class="uk-form-row">
+                                <label class="uk-form-label" for="stock">库存</label>
+                                <div class="uk-form-controls">
+                                    <input type="number" id="stock" name="Num" placeholder="0.000">
+                                </div>
+                            </div>
+                            <div class="uk-form-row">
+                                <div class="uk-form-controls">
+                                    <button class="uk-button uk-button-success">Submit</button>
+                                    <input type="reset" class="uk-button" value="Reset"/>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
 			</div>
 			<div class="tm-footer uk-grid">
 				<div class="uk-width-1-1">
@@ -97,6 +218,7 @@
 					Made by gw.<br />used uikit
 				</p>
 			</div>
+
 		</div>
 	</div>
 </body>
