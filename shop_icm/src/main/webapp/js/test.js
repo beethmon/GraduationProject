@@ -79,13 +79,14 @@ var dataProcessUtil = {
         $.ajax({
             url : this.url + this.pSize+"/"+this.pIndex,
             type : 'POST',
-            async: false,
             dataType : 'json',
             data : this.query,
             success : function(data) {
                 dataProcessUtil.json =data;
                 console.log(data);
                 dataProcessUtil.defaultDisplay();
+                if(dataProcessUtil.pIndex<=1)
+                    dataProcessUtil.initPage();
             }
         }).done(function() {
             console.log("success");
@@ -94,7 +95,6 @@ var dataProcessUtil = {
         }).always(function() {
             console.log("complete");
         });
-        console.log(this.pIndex);
     },
 
     // 数据填充
@@ -143,7 +143,7 @@ var dataProcessUtil = {
             context.append(itemContext);
             itemContext.bind("click",function(){
                 $.UIkit.modal("#update_info").show();
-                fillingDataInModal(item);
+
             });
         }
         dataContext.append(context);
@@ -220,7 +220,9 @@ var dataProcessUtil = {
     search : function(qJson){
         if(typeof (qJson) != "undefinded")
             this.query = qJson;
+        this.pIndex = 1;
         this.getData();
-    }
+    },
+    fillingModal: function(){}
 };
 
