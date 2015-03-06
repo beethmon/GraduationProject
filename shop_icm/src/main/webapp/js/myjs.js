@@ -19,6 +19,10 @@
     };
 })(jQuery);
 
+//全局变量
+var json;
+
+//侧边栏
 $(function() {
 	console.log("test");
 	var toggle = $(".tm-toggle-icon");
@@ -89,20 +93,16 @@ function fillingDataWith_UK_Panel(location, json, tname, displayAttrs) {
 
 	var dataContext = $(location);
 	// 创建容器
-	var context = $("<div id=\"context\" class=\"uk-grid uk-grid-match\"></div>");
+	var context = $("<div id='context' class='uk-grid uk-grid-match'></div>");
 	// 创建items
 
 	for (var i = 0; i < list.length; i++) {
 		var item = list[i];
-		var id = "item" + (i + 1);
-		var itemContext = $("<div id=\""
-				+ id
-				+ "\" class=\"uk-width-small-1-2 uk-width-medium-1-3 uk-flex"
-				+" uk-scrollspy-init-inview uk-scrollspy-inview uk-animation-scale-up\"></div>");
+		var itemContext = $("<a  class='tm-item uk-width-small-1-2 uk-width-medium-1-3 uk-flex uk-scrollspy-init-inview uk-scrollspy-inview uk-animation-scale-up'></a>");
 		// 创建uk-panel
-		var panel = $("<div class=\"uk-panel uk-panel-box\">");
-		var title = $("<h3 class=\"uk-panel-title\"></h3>");
-		var table = $("<table class=\"uk-table\"></table>");
+		var panel = $("<div class='uk-panel uk-panel-box'>");
+		var title = $("<h3 class='uk-panel-title'></h3>");
+		var table = $("<table class='uk-table'></table>");
 		// 数据填冲
 		if (typeof (displayAttrs) == "undefined") {
 			for ( var key in jsonAttrName) {
@@ -125,11 +125,10 @@ function fillingDataWith_UK_Panel(location, json, tname, displayAttrs) {
 		panel.append(table);
 		itemContext.append(panel);
 		context.append(itemContext);
-        //绑定方法
         itemContext.bind("click",function(){
-            $.UIkit.modal("#update").show();
+            $.UIkit.modal("#update_info").show();
+            fillingDataInModal(item);
         });
-
 	}
 	dataContext.append(context);
 	context.uk("gridMargin");
@@ -149,9 +148,9 @@ function fillingDataWithTable(location, json, tname, displayAttrs) {
 	// 寻找插入位置
 	var dataContext = $(location);
 	// 创建容器
-	var context = $("<div id=\"context\"></div>");
+	var context = $("<div id='context'></div>");
 	// 创建表格
-	var table = $("<table class=\"uk-table uk-table-hover uk-table-striped\"></table>");
+	var table = $("<table class='uk-table uk-table-hover uk-table-striped'></table>");
 	var thead = $("<thead><tr></tr></thead>");
 	var tbody = $("<tbody></tbody>");
 	// 制作表头
@@ -165,9 +164,10 @@ function fillingDataWithTable(location, json, tname, displayAttrs) {
 	for (var i = 0; i < list.length; i++) {
 		var item = list[i];
 		var id = "item" + (i + 1);
-		var tr = $("<tr id=\"" + id + "\"></tr>");
+		var tr = $("<tr class='tm-item uk-scrollspy-init-inview uk-scrollspy-inview uk-animation-fade'></tr>");
 		tr.append($("<td></td>").html(item[tname]));
 		for ( var key in attrs) {
+            // 假如没有displayAttr参数 key为数字，需到attrs里提取json属性名称作为key
 			key = /^\d+$/.test(key) ? attrs[key] : key;
 			tr.append($("<td></td>").html(item[key]));
 		}
@@ -180,42 +180,51 @@ function fillingDataWithTable(location, json, tname, displayAttrs) {
 	dataContext.append(context);
 }
 
+//填充数据到表格
+function fillingDataInModal(data){
+    console.log("fillingDataInModal");
+    console.log(data);
+}
+
 function dataEscape(arr) {
-	for ( var index in arr) {
-		var item = arr[index];
-		for ( var key in item) {
-			if (key == "state") {
-				item[key] = item[key] == 1 ? "在售" : "下架";
-			}
-		}
-	}
+    $("td:contains('状态')+td").each(function(i,e){
+        var element = $(e);
+        element.html()>0?element.html("有效"):element.html("无效");
+    });
 }
 
 // 翻页插件
-function pageInit(url, query, tjson, displayFun2) {
+function pageInit(url, query, tjson, displayFun) {
 	$(".uk-pagination").remove();
 	var pagePlugin = $("<ul class=\"uk-pagination\"></ul>");
 	$("#page-context").append(pagePlugin);
 	var pagination = $.UIkit.pagination($(".uk-pagination"), {
-		pages       : tjson["pages"]
-	});
+        pages       : tjson["pages"]
+    });
 	pagination.off('select.uk.pagination');
 	pagination.on('select.uk.pagination', function(e, pageIndex) {
 		console.log('You have selected page: ' + (pageIndex + 1));
 		getDataWithAjax(url + (pageIndex + 1), query, function(data) {
+            json = data;
 			$.scrollTo(0,250);
-			dataEscape(data["list"]);
 			console.log(query);
-			defaultDisplay("#data-context", data, tname, colname);
+            if(typeof (displayFun) != "undefinded")
+                defaultDisplay("#data-context", data, tname, colname);
+            else
+                displayFun("#data-context", data, tname, colname);
+            dataEscape();
 		});
 	});
-	
+    dataEscape();
 }
 
 function search(url, query, tname, colname, displayFun) {
 	getDataWithAjax(url + 1, query, function(data) {
-		dataEscape(data["list"]);
-		displayFun("#data-context", data, tname, colname);
+        json = data;
+        if(typeof (displayFun) != "undefinded")
+            defaultDisplay("#data-context", data, tname, colname);
+        else
+            displayFun("#data-context", data, tname, colname);
 		pageInit(url, query, data, displayFun);
 	});
 }
