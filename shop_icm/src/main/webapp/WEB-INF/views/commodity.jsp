@@ -16,40 +16,21 @@
 <script src="${contextPath }/js/jquery.scrollTo.js"></script>
 <script src="${contextPath }/js/uikit.js"></script>
 <script src="${contextPath }/js/components/pagination.js"></script>
-<script src="${contextPath }/js/myjs.js"></script>
+<script src="${contextPath }/js/test.js"></script>
 
 <!-- filling data -->
 <script type="text/javascript">
-	var json;
-	var url = "${contextPath}${path}/json/15/";
-	var colname = {"ccodes":"CCodes","sales_price":"单价(￥)","num":"库存(个/kg)","state":"状态"};
-	var defaultDisplay = fillingDataWith_UK_Panel;
-	var tname = "cname";
-	var gquery = {};
-	$(function(){
-		search(url, null, tname, colname, defaultDisplay);
-        // 绑定搜索的表单事件
-		$("#search").submit(function(){
-			var query = $(this).serializeJson();
-			gquery = query;
-			search(url, query, tname, colname, defaultDisplay);
-			return false;
-		});
-        // 新增/修改窗体打开与关闭事件事件
-        $('#insert').on({
-            'show.uk.modal': function(e){
-                console.log("Modal is visible.");
-                console.log(e);
-            },
-            'hide.uk.modal': function(){
-                console.log("Element is not visible.");
-                $("#insert_form input[type='reset']").click();
-            }
-        });
-
-	});
-	
-	
+    $(function(){
+        dataProcessUtil.url =  "${contextPath }${path}/json/"
+        dataProcessUtil.pSize = 15;
+        dataProcessUtil.pIndex = 1;
+        dataProcessUtil.pageLocation = "#page-context";
+        dataProcessUtil.location = "#data-context";
+        dataProcessUtil.colname = {"ccodes":"CCodes","sales_price":"单价(￥)","num":"库存(个/kg)","state":"状态"};
+        dataProcessUtil.tname = "cname";
+        dataProcessUtil.defaultDisplay = dataProcessUtil.fillingDataWith_UK_Panel;
+        dataProcessUtil.getData();
+    });
 </script>
 
 <!-- myjs -->
@@ -102,18 +83,22 @@
 			</div>
 			<div class="tm-context">
 				<!-- search -->
-
-					<div class="uk-grid">
-						<div class="uk-width-1-2 uk-container-center">
-                            <form id="search" action="" class="uk-form uk-form-horizontal">
-                                <div class="uk-form-row">
-                                    <input type="text" id="search_cname" class="uk-width-3-4" name="cname" placeholder="Commodity name">
-                                    <button class="uk-button">Search</button>
-                                </div>
-                            </form>
-						</div>
-					</div>
-
+				<div class="uk-grid">
+					<div class="uk-width-1-2 uk-container-center">
+                        <form id="search" action="" class="uk-form uk-form-horizontal">
+                            <div class="uk-form-row">
+                                <input type="text" id="search_cname" class="uk-width-3-4" name="cname" placeholder="Commodity name">
+                                <button class="uk-button">Search</button>
+                            </div>
+                        </form>
+                    </div>
+				</div>
+                <div class="uk-grid">
+                    <div class="uk-width-1-1 uk-text-right">
+                        <i class="uk-icon-th-large uk-icon-medium" onclick="change(fillingDataWith_UK_Panel)"></i>
+                        <i class="uk-icon-th-list uk-icon-medium" onclick="change(fillingDataWithTable)"></i>
+                    </div>
+                </div>
 				<!-- 数据容器 -->
 				<div id="data-context" style="min-height: 550px;margin:15px 0;">
 					
@@ -144,17 +129,17 @@
                                     </div>
                                 </div>
                                 <div class="uk-form-row">
-                                    <label class="uk-form-label" for="">状态</label>
+                                    <label class="uk-form-label">状态</label>
                                     <div class="uk-form-controls">
-                                        <input type="radio" id="form-s-r1" name="radio" value="1">
+                                        <input type="radio" id="form-s-r1" name="state" value="1">
                                         <label for="form-s-r1">在售</label>
-                                        <label><input type="radio" name="radio" value="-1">下架</label>
+                                        <label><input type="radio" name="state" value="-1">下架</label>
                                     </div>
                                 </div>
                                 <div class="uk-form-row">
                                     <label class="uk-form-label" for="stock">库存</label>
                                     <div class="uk-form-controls">
-                                        <input type="number" id="stock" name="Num" placeholder="0.000">
+                                        <input type="number" id="stock" name="num" placeholder="0.000">
                                     </div>
                                 </div>
                                 <div class="uk-form-row">
@@ -167,35 +152,35 @@
                         </div>
                     </div>
                 </div>
-                <div id="update" class="uk-modal">
+                <div id="update_info" class="uk-modal">
                     <div class="uk-modal-dialog">
                         <a class="uk-modal-close uk-close" href=""></a>
                         <h1>新增</h1>
-                        <form id="insert_form" type="ajax" action="" class="uk-form uk-form-horizontal">
+                        <form id="update_form" type="ajax" action="" class="uk-form uk-form-horizontal">
                             <div class="uk-form-row">
                                 <label class="uk-form-label" for="cname">商品名</label>
                                 <div class="uk-form-controls">
-                                    <input type="text" id="cname" name="cname" placeholder="Commodity name">
+                                    <input type="text" name="cname" placeholder="Commodity name">
                                 </div>
                             </div>
                             <div class="uk-form-row">
                                 <label class="uk-form-label" for="sales_price">价格</label>
                                 <div class="uk-form-controls">
-                                    <input type="text" id="sales_price" name="sales_price" placeholder="Sales price">
+                                    <input type="text"  name="sales_price" placeholder="Sales price">
                                 </div>
                             </div>
                             <div class="uk-form-row">
-                                <label class="uk-form-label" for="">状态</label>
+                                <label class="uk-form-label">状态</label>
                                 <div class="uk-form-controls">
-                                    <input type="radio" id="form-s-r1" name="radio" value="1">
+                                    <input type="radio"  name="state" value="1">
                                     <label for="form-s-r1">在售</label>
-                                    <label><input type="radio" name="radio" value="-1">下架</label>
+                                    <label><input type="radio" name="state" value="-1">下架</label>
                                 </div>
                             </div>
                             <div class="uk-form-row">
                                 <label class="uk-form-label" for="stock">库存</label>
                                 <div class="uk-form-controls">
-                                    <input type="number" id="stock" name="Num" placeholder="0.000">
+                                    <input type="number"  name="num" placeholder="0.000">
                                 </div>
                             </div>
                             <div class="uk-form-row">
@@ -208,17 +193,15 @@
                     </div>
                 </div>
             </div>
-			</div>
-			<div class="tm-footer uk-grid">
-				<div class="uk-width-1-1">
-					<hr />
-				</div>
-				<br />
-				<p>
-					Made by gw.<br />used uikit
-				</p>
-			</div>
-
+            <div class="tm-footer uk-grid">
+                <div class="uk-width-1-1">
+                    <hr />
+                </div>
+                <br />
+                <p>
+                    Made by gw.<br />used uikit
+                </p>
+            </div>
 		</div>
 	</div>
 </body>
