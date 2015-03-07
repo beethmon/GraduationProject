@@ -7,10 +7,8 @@ import java.util.Locale;
 import org.sl.shop.model.Commodity;
 import org.sl.shop.model.PurchaseOrderItem;
 import org.sl.shop.model.SalesView;
-import org.sl.shop.model.Stock;
 import org.sl.shop.service.CommodityService;
 import org.sl.shop.service.PurchaseOrderItemService;
-import org.sl.shop.service.StockService;
 import org.sl.shop.util.Orderby;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -27,8 +25,6 @@ import com.github.pagehelper.PageHelper;
 public class HomeController extends BaseController {
 
 	@Autowired
-	private StockService stockService;
-	@Autowired
 	private PurchaseOrderItemService purchaseOrderItemService;
 	@Autowired
 	private CommodityService commodityService;
@@ -36,7 +32,7 @@ public class HomeController extends BaseController {
 	@RequestMapping(value = "/")
 	public String index(Model model) {
 		// 视图数据填充
-		model.addAttribute("stocks", getStock());
+		model.addAttribute("commodity", getCommodity());
 		model.addAttribute("pPurchaseOrderItems", getPurchase());
 		model.addAttribute("salesView", getSalesView());
 		return "index";
@@ -65,14 +61,14 @@ public class HomeController extends BaseController {
 		return "test";
 	}
 
-	private Page<Stock> getStock() {
+	private Page<Commodity> getCommodity() {
 		// 设置分页为第1页每页3个
 		PageHelper.startPage(1, 3);
 		// 获取库存最少3个
-		Stock queryStock = new Stock();
-		queryStock.setOrderby(new Orderby("num", Orderby.ASC));
-		Page<Stock> pStocks = (Page<Stock>) stockService.getStock(queryStock);
-		return pStocks;
+		Commodity commodity = new Commodity();
+        commodity.setOrderby(new Orderby("num", Orderby.ASC));
+        Page<Commodity> pCommodigy = (Page<Commodity>)commodityService.getCommodity(commodity);
+		return pCommodigy;
 	}
 
 	private Page<PurchaseOrderItem> getPurchase() {

@@ -5,11 +5,11 @@ import java.util.List;
 import org.sl.shop.model.Supplier;
 
 public interface SupplierMapper {
-	public boolean addSupplier(Supplier supplier);
+	public int addSupplier(Supplier supplier);
 
 	public int updateSupplier(Supplier supplier);
 
-	public boolean deleteSupplier(Supplier supplier);
+	public int deleteSupplier(Supplier supplier);
 
 	// query
 	/**

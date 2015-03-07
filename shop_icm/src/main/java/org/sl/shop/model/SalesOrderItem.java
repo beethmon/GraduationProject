@@ -9,7 +9,8 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 
 public class SalesOrderItem extends QueryExtra {
 	private int soiid;
-	private SalesOrder salesOrder;
+//	private SalesOrder salesOrder;
+    private int soid;
 	private Commodity comm;
 	private double num;
 	private double unitPrice;
@@ -24,13 +25,21 @@ public class SalesOrderItem extends QueryExtra {
 		this.soiid = soiid;
 	}
 
-	public SalesOrder getSalesOrder() {
-		return salesOrder;
-	}
+//	public SalesOrder getSalesOrder() {
+//		return salesOrder;
+//	}
+//
+//	public void setSalesOrder(SalesOrder salesOrder) {
+//		this.salesOrder = salesOrder;
+//	}
 
-	public void setSalesOrder(SalesOrder salesOrder) {
-		this.salesOrder = salesOrder;
-	}
+    public int getSoid() {
+        return soid;
+    }
+
+    public void setSoid(int soid) {
+        this.soid = soid;
+    }
 
 	public Commodity getComm() {
 		return comm;

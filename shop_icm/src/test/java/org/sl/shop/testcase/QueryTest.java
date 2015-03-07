@@ -15,7 +15,6 @@ import org.sl.shop.mapper.RefundMapper;
 import org.sl.shop.mapper.SalesOrderItemMapper;
 import org.sl.shop.mapper.SalesOrderMapper;
 import org.sl.shop.mapper.StaffMapper;
-import org.sl.shop.mapper.StockMapper;
 import org.sl.shop.mapper.SupplierMapper;
 import org.sl.shop.mapper.UserMapper;
 import org.sl.shop.mapper.ViewMapper;
@@ -27,7 +26,6 @@ import org.sl.shop.model.SalesOrder;
 import org.sl.shop.model.SalesOrderItem;
 import org.sl.shop.model.SalesView;
 import org.sl.shop.model.Staff;
-import org.sl.shop.model.Stock;
 import org.sl.shop.model.Supplier;
 import org.sl.shop.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,8 +54,6 @@ public class QueryTest {
 	SalesOrderItemMapper soiMapper;
 	@Autowired
 	RefundMapper rdMapper;
-	@Autowired
-	StockMapper skMapper;
 	@Autowired
 	StaffMapper sfMapper;
 	@Autowired
@@ -153,20 +149,6 @@ public class QueryTest {
 		System.out.println("===========================\n");
 		System.out.println("RefundMapper");
 		List<Refund> list = this.rdMapper.getRefund(null);
-		if (list.size() > 0) {
-			System.out.println(beanToJson(list.get(0)));
-		} else {
-			System.out.println("is null");
-		}
-		System.out.println();
-		System.out.println("\n===========================");
-	}
-
-	@Test
-	public void testStock() {
-		System.out.println("===========================\n");
-		System.out.println("StockMapper");
-		List<Stock> list = this.skMapper.getStock(null);
 		if (list.size() > 0) {
 			System.out.println(beanToJson(list.get(0)));
 		} else {

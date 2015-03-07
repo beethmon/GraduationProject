@@ -74,6 +74,9 @@
 		(bno,spid,sum,poDate,state)
 		VALUES
 		(#{bno},#{supplier.spid},#{sum},#{poDate},#{state})
+        <selectKey resultType="Integer" keyProperty="poid">
+            SELECT LAST_INSERT_ID();
+        </selectKey>
 	</insert>
 
 	<update id="updatePurchaseOrder" parameterType="PurchaseOrder">

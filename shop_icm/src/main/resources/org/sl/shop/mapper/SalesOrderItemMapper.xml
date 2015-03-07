@@ -11,10 +11,6 @@
 		salesorderitem.unitPrice,
 		salesorderitem.sum,
 		salesorderitem.soiDate,
-		salesorder.soid,
-		salesorder.bno,
-		salesorder.poDate,
-		salesorder.sum,
 		commodity.cid,
 		commodity.cname,
 		commodity.sales_price,
@@ -23,8 +19,6 @@
 		commodity.state
 		FROM
 		salesorderitem
-		INNER JOIN salesorder ON salesorderitem.soid =
-		salesorder.soid
 		INNER JOIN commodity ON salesorderitem.cid =
 		commodity.cid
 		<where>
@@ -48,7 +42,10 @@
 		salesorderitem
 		(soid,cid,num,unitPrice,sum,soiDate)
 		VALUES
-		(#{salesOrder.soid},#{comm.cid},#{num},#{unitPrice},#{sum},#{soiDate})
+		(#{soid},#{comm.cid},#{num},#{unitPrice},#{sum},#{soiDate})
+        <selectKey resultType="Integer" keyProperty="soiid">
+            SELECT LAST_INSERT_ID();
+        </selectKey>
 	</insert>
 
 	<update id="updateSalesOrderItem" parameterType="SalesOrderItem">

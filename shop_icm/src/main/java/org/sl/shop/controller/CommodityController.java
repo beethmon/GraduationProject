@@ -8,7 +8,6 @@ import javax.servlet.http.HttpServletRequest;
 import org.sl.shop.model.Commodity;
 import org.sl.shop.model.SalesView;
 import org.sl.shop.service.CommodityService;
-import org.sl.shop.service.StockService;
 import org.sl.shop.util.Orderby;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -29,16 +28,14 @@ public class CommodityController extends BaseController {
 
 	@Autowired
 	private CommodityService commodityService;
-    @Autowired
-    private StockService stockService;
-	
+
 	
 	@RequestMapping(value = "")
 	public String commodityView(Model model,HttpServletRequest request){
 		String contextPath = request.getContextPath();
 		String path = request.getServletPath();
 		System.out.println("//"+path);
-		//Page<Commodity> p = getCommodities(1,12,null);
+		//Page<Commodity> p = getCommodities(1,15,null);
 		//model.addAttribute("p", p);
 		model.addAttribute("contextPath", contextPath);
 		model.addAttribute("path",path);

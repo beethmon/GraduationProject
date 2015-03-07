@@ -76,10 +76,10 @@
 							<div class="tm-pb-text">
 								<h3 class="uk-panel-title">库存少的商品:</h3>
 								<table class="uk-table">
-									<c:forEach var="stock" items="${stocks}" begin="0" end="2">
+									<c:forEach var="comm" items="${commodity}" begin="0" end="2">
 										<tr>
-											<td><c:out value="${stock.comm.cname}"></c:out></td>
-											<td><c:out value="${stock.num}"></c:out>(个/瓶/kg)</td>
+											<td><c:out value="${comm.cname}"></c:out></td>
+											<td><c:out value="${comm.num}"></c:out>(个/瓶/kg)</td>
 										</tr>
 									</c:forEach>
 								</table>

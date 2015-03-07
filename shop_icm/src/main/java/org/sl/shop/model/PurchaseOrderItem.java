@@ -10,7 +10,8 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 
 public class PurchaseOrderItem extends QueryExtra {
 	private int poiid;
-	private PurchaseOrder purchaseOrder;
+//	private PurchaseOrder purchaseOrder;
+    private int poid;
 	private Commodity comm;
 	private double num;
 	private double unitPrice;
@@ -25,13 +26,21 @@ public class PurchaseOrderItem extends QueryExtra {
 		this.poiid = poiid;
 	}
 
-	public PurchaseOrder getPurchaseOrder() {
-		return purchaseOrder;
-	}
+//	public PurchaseOrder getPurchaseOrder() {
+//		return purchaseOrder;
+//	}
+//
+//	public void setPurchaseOrder(PurchaseOrder purchaseOrder) {
+//		this.purchaseOrder = purchaseOrder;
+//	}
 
-	public void setPurchaseOrder(PurchaseOrder purchaseOrder) {
-		this.purchaseOrder = purchaseOrder;
-	}
+    public int getPoid() {
+        return poid;
+    }
+
+    public void setPoid(int poid) {
+        this.poid = poid;
+    }
 
 	public Commodity getComm() {
 		return comm;

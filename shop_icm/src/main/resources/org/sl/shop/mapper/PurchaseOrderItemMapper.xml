@@ -11,12 +11,6 @@
 		purchaseorderitem.unitPrice,
 		purchaseorderitem.sum,
 		purchaseorderitem.poiDate,
-		purchaseorder.poid,
-		purchaseorder.bno,
-		purchaseorder.spid,
-		purchaseorder.sum,
-		purchaseorder.poDate,
-		purchaseorder.state,
 		commodity.cid,
 		commodity.cname,
 		commodity.sales_price,
@@ -25,16 +19,11 @@
 		commodity.state
 		FROM
 		purchaseorderitem
-		INNER JOIN purchaseorder ON
-		purchaseorderitem.poid = purchaseorder.poid
 		INNER JOIN commodity ON
 		purchaseorderitem.cid = commodity.cid
 		<where>
 			<if test="poiid != 0 and poiid != null">
 				purchaseorderitem.poiid = #{poiid}
-			</if>
-			<if test="purchaseOrder != null">
-				AND purchaseorderitem.poid = #{purchaseOrder.poid}
 			</if>
 			<if test="comm != null and comm.cid != 0">
 				AND purchaseorderitem.cid = #{comm.cid}
@@ -53,7 +42,10 @@
 		purchaseorderitem
 		(poid,cid,num,unitPrice,sum,poiDate)
 		VALUES
-		(#{purchaserOrder.poid},#{comm.cid},#{num},#{unitPrice},#{sum},#{poiDate})
+		(#{poid},#{comm.cid},#{num},#{unitPrice},#{sum},#{poiDate})
+        <selectKey resultType="Integer" keyProperty="poiid">
+            SELECT LAST_INSERT_ID();
+        </selectKey>
 	</insert>
 
 	<update id="updatePurchaseOrderItem" parameterType="PurchaseOrderItem">
