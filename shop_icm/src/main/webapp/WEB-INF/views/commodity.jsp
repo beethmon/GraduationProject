@@ -16,10 +16,12 @@
 <script src="${contextPath }/js/jquery.scrollTo.js"></script>
 <script src="${contextPath }/js/uikit.js"></script>
 <script src="${contextPath }/js/components/pagination.js"></script>
-<script src="${contextPath }/js/test.js"></script>
+<script src="${contextPath }/js/components/notify.js"></script>
+<script src="${contextPath }/js/myjs.js"></script>
 
 <!-- filling data -->
 <script type="text/javascript">
+
     $(function(){
         dataProcessUtil.url =  "${contextPath }${path}/json/"
         dataProcessUtil.pSize = 15;
@@ -30,6 +32,73 @@
         dataProcessUtil.tname = "cname";
         dataProcessUtil.defaultDisplay = dataProcessUtil.fillingDataWith_UK_Panel;
         dataProcessUtil.getData();
+
+        //以下方法没有重用性
+        //查询
+        $("form#search").submit(function(){
+            var cname = $("form#search input[name=cname]").val();
+            var query = {};
+            query.cname = cname;
+            dataProcessUtil.search(query)
+            return false;
+        });
+        //插入
+        $("form#insert_form").submit(function(){
+//            var insert = $("#insert_form").serializeJson();
+            //不要重用的自己封装
+            var flag = true;
+            var insert = {};
+            var cname = $("form#insert_form input[name=cname]").val();
+            var sales_price = $("form#insert_form input[name=sales_price]").val();
+            var state = $("form#insert_form input[name=state][type=radio][checked=checked]").val();
+            var num = $("form#insert_form input[name=num]").val();
+            flag = /^\d+(\.\d+)?$/.test(num)&& /^\d+(\.\d+)?$/.test(sales_price)
+            &&""!=cname&&""!=sales_price&&""!=state&&""!=num?flag:false;
+            if(flag){
+                insert.cname=cname;
+                insert.sales_price=sales_price;
+                insert.state=state;
+                insert.num=num;
+                dataProcessUtil.commitSimpleObj("add",insert);
+            }else {
+                $.UIkit.notify({
+                    message: "<i class='uk-icon-close'></i> 数据有误,请修改",
+                    timeout: 2000,
+                    pos: 'top-center',
+                    status: 'danger'
+                });
+            }
+            return false;
+        });
+        //修改
+        $("form#update_form").submit(function(){
+            var flag = true;
+            var update = {};
+            var cid = $("form#update_form input[name=cid]").val();
+            var cname = $("form#update_form input[name=cname]").val();
+            var sales_price = $("form#update_form input[name=sales_price]").val();
+            var state = $("form#update_form input[name=state][type=radio][checked=checked]").val();
+            var num = $("form#update_form input[name=num]").val();
+            flag = /^\d+(\.\d+)?$/.test(num)&& /^\d+(\.\d+)?$/.test(sales_price)
+            &&""!=cname&&""!=sales_price&&""!=state&&""!=num?flag:false;
+            if(flag){
+                update.cid=cid;
+                update.cname=cname;
+                update.sales_price=sales_price;
+                update.state=state;
+                update.num=num;
+                console.log(update);
+                dataProcessUtil.commitSimpleObj("update",update);
+            }else {
+                $.UIkit.notify({
+                    message: "<i class='uk-icon-close'></i> 数据有误,请修改",
+                    timeout: 2000,
+                    pos: 'top-center',
+                    status: 'danger'
+                });
+            }
+            return false;
+        });
     });
 </script>
 
@@ -85,7 +154,7 @@
 				<!-- search -->
 				<div class="uk-grid">
 					<div class="uk-width-1-2 uk-container-center">
-                        <form id="search" action="" class="uk-form uk-form-horizontal">
+                        <form id="search" method="post" class="uk-form uk-form-horizontal">
                             <div class="uk-form-row">
                                 <input type="text" id="search_cname" class="uk-width-3-4" name="cname" placeholder="Commodity name">
                                 <button class="uk-button">Search</button>
@@ -95,8 +164,8 @@
 				</div>
                 <div class="uk-grid">
                     <div class="uk-width-1-1 uk-text-right">
-                        <i class="uk-icon-th-large uk-icon-medium" onclick="change(fillingDataWith_UK_Panel)"></i>
-                        <i class="uk-icon-th-list uk-icon-medium" onclick="change(fillingDataWithTable)"></i>
+                        <i class="uk-icon-button uk-icon-th-large" onclick="dataProcessUtil.change(dataProcessUtil.fillingDataWith_UK_Panel)"></i>
+                        <i class="uk-icon-button uk-icon-th-list" onclick="dataProcessUtil.change(dataProcessUtil.fillingDataWithTable)"></i>
                     </div>
                 </div>
 				<!-- 数据容器 -->
@@ -131,7 +200,7 @@
                                 <div class="uk-form-row">
                                     <label class="uk-form-label">状态</label>
                                     <div class="uk-form-controls">
-                                        <input type="radio" id="form-s-r1" name="state" value="1">
+                                        <input type="radio" id="form-s-r1" name="state" value="1" checked="checked">
                                         <label for="form-s-r1">在售</label>
                                         <label><input type="radio" name="state" value="-1">下架</label>
                                     </div>
@@ -139,7 +208,7 @@
                                 <div class="uk-form-row">
                                     <label class="uk-form-label" for="stock">库存</label>
                                     <div class="uk-form-controls">
-                                        <input type="number" id="stock" name="num" placeholder="0.000">
+                                        <input type="number" id="stock" name="num" placeholder="0.000"  value="0">
                                     </div>
                                 </div>
                                 <div class="uk-form-row">
@@ -155,8 +224,9 @@
                 <div id="update_info" class="uk-modal">
                     <div class="uk-modal-dialog">
                         <a class="uk-modal-close uk-close" href=""></a>
-                        <h1>新增</h1>
-                        <form id="update_form" type="ajax" action="" class="uk-form uk-form-horizontal">
+                        <h1>修改</h1>
+                        <form id="update_form" method="post" action="" class="uk-form uk-form-horizontal">
+                            <input type="hidden" name="cid">
                             <div class="uk-form-row">
                                 <label class="uk-form-label" for="cname">商品名</label>
                                 <div class="uk-form-controls">
@@ -180,7 +250,7 @@
                             <div class="uk-form-row">
                                 <label class="uk-form-label" for="stock">库存</label>
                                 <div class="uk-form-controls">
-                                    <input type="number"  name="num" placeholder="0.000">
+                                    <input type="number"  name="num" placeholder="0.000" value="0">
                                 </div>
                             </div>
                             <div class="uk-form-row">

@@ -3,6 +3,7 @@ package org.sl.shop.testcase;
 import java.io.IOException;
 import java.io.StringWriter;
 import java.util.List;
+import java.util.Random;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -70,7 +71,7 @@ public class QueryTest {
 		System.out.println("CommodityMapper");
 		List<Commodity> list = this.cMapper.getCommodity(null);
 		if (list.size() > 0) {
-			System.out.println(beanToJson(list.get(0)));
+			System.out.println(beanToJson(list));
 		} else {
 			System.out.println("is null");
 		}
@@ -217,6 +218,19 @@ public class QueryTest {
 		System.out.println("\n===========================");
 	}
 
+    @Test
+    public void testAdd(){
+        Commodity comm = new Commodity();
+        String name = "可口可乐";
+        comm.setCname(name);
+        comm.setSales_price(3);
+        Random random = new Random(name.hashCode());
+        comm.setCcodes(String.valueOf((long)(random.nextDouble()*10000000000000L)));
+        comm.setState(1);
+//        int i = this.cMapper.addCommodity(comm);
+//        System.out.println("test:"+ i);
+        System.out.println(comm);
+    }
 	// ///////////////////////////////////////////////////////////
 
 	public static String beanToJson(Object obj) {

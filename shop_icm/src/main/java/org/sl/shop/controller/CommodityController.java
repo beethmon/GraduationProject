@@ -1,5 +1,6 @@
 package org.sl.shop.controller;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -28,6 +29,8 @@ public class CommodityController extends BaseController {
 
 	@Autowired
 	private CommodityService commodityService;
+    @Autowired
+    private StockService stockService;
 	
 	
 	@RequestMapping(value = "")
@@ -61,7 +64,31 @@ public class CommodityController extends BaseController {
 		Page<SalesView> p = (Page<SalesView>) commodityService.getCommoditySalesView(commodity);
 		return generationJsonMap(p);
 	}
-	
+
+    @RequestMapping(value = "/json/add", produces = "application/json")
+    @ResponseBody
+    public Map<String, Object>add(Commodity commodity){
+        boolean flag = false;
+        Map<String, Object> map = new HashMap<String, Object>();
+        if(commodity.getCname()!=""&&commodity.getSales_price()!=0&&commodity.getState()!=0)
+            flag = this.commodityService.addCommodity(commodity)>0?true:false;
+        map.put("isSuccess",flag);
+        map.put("Commodity",commodity);
+        return map;
+    }
+
+    @RequestMapping(value = "/json/update", produces = "application/json")
+    @ResponseBody
+    public Map<String, Object>update(Commodity commodity){
+        boolean flag = false;
+        Map<String, Object> map = new HashMap<String, Object>();
+        System.out.println("update:"+commodity);
+        if(commodity.getCname()!=""&&commodity.getSales_price()!=0&&commodity.getState()!=0)
+            flag = this.commodityService.updateCommodity(commodity)>0?true:false;
+        map.put("isSuccess",flag);
+        return map;
+    }
+    
 	private Page<Commodity> getCommodities(int page,int pagesize, Commodity query){
 		PageHelper.startPage(page, pagesize);
 		return (Page<Commodity>) commodityService.getCommodity(query);

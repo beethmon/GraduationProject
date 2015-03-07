@@ -29,19 +29,18 @@ public class CommodityService {
     }
 
     @Transactional
-    public void addCommodity(Commodity comm) {
-        commodityMapper.addCommodity(comm);
+    public int addCommodity(Commodity comm) {
+        return commodityMapper.addCommodity(comm);
     }
 
     @Transactional
-    public void updateCommodity(Commodity comm) {
-        commodityMapper.updateCommodity(comm);
+    public int updateCommodity(Commodity comm) {
+        return commodityMapper.updateCommodity(comm);
     }
 
     @Transactional
-    public boolean deleteCommodity(Commodity comm) {
-        commodityMapper.deleteCommodity(comm);
-        return true;
+    public int deleteCommodity(Commodity comm) {
+        return commodityMapper.deleteCommodity(comm);
     }
 
 }
