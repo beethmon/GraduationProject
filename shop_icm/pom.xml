@@ -123,6 +123,11 @@
             <artifactId>pagehelper</artifactId>
             <version>3.5.1</version>
         </dependency>
+        <dependency>
+            <groupId>org.apache.directory.studio</groupId>
+            <artifactId>org.apache.commons.lang</artifactId>
+            <version>2.6</version>
+        </dependency>
 
         <!-- 日志 环境-->
         <dependency>

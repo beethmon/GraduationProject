@@ -5,11 +5,11 @@ import java.util.List;
 import org.sl.shop.model.User;
 
 public interface UserMapper {
-	public void addUser(User user);
+	public int addUser(User user);
 
-	public void updateUser(User user);
+	public int updateUser(User user);
 
-	public boolean deleteUser(User user);
+	public int deleteUser(User user);
 
 	public List<User> getAllUser(User user);
 	

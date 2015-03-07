@@ -15,26 +15,16 @@
 
 	<!-- ============================================================ -->
 
-	<!-- ResultMap 库存 -->
-	<resultMap type="Stock" id="stockResultMap">
-		<result property="num" column="num" />
-		<association property="comm" column="cid" javaType="Commodity"
-			resultMap="commodityResultMap" />
-	</resultMap>
-
-	<!-- ============================================================ -->
-
 	<!-- ResultMap 销售单详细 -->
 	<resultMap type="SalesOrderItem" id="salesOrderItemResultMap">
 		<id property="soiid" column="soiid" />
+        <result property="soid" column="soid" />
 		<result property="num" column="num" />
 		<result property="unitPrice" column="unitPrice" />
 		<result property="sum" column="sum" />
 		<result property="soiDate" column="soiDate" />
 		<association property="comm" column="cid" javaType="Commodity"
 			resultMap="commodityResultMap" />
-		<association property="salesOrder" column="soid" javaType="SalesOrder"
-			resultMap="salesOrderResultMap" />
 	</resultMap>
 
 	<!-- ============================================================ -->
@@ -65,8 +55,6 @@
 		<result property="poiDate" column="poiDate" />
 		<association property="comm" column="cid" javaType="Commodity"
 			resultMap="commodityResultMap" />
-		<association property="purchaseOrder" column="poid"
-			javaType="PurchaseOrder" resultMap="purchaseOrderResultMap" />
 	</resultMap>
 
 	<!-- ============================================================ -->

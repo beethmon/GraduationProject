@@ -143,7 +143,8 @@ var dataProcessUtil = {
             context.append(itemContext);
             itemContext.bind("click",function(){
                 $.UIkit.modal("#update_info").show();
-
+                dataProcessUtil.fillingModal($("#update_info"),item);
+                console.log(item);
             });
         }
         dataContext.append(context);
@@ -217,12 +218,90 @@ var dataProcessUtil = {
             $.scrollTo(0,250);
         });
     },
+    /**
+     * @description 搜索并填充
+     * @param qJson
+     */
     search : function(qJson){
         if(typeof (qJson) != "undefinded")
             this.query = qJson;
         this.pIndex = 1;
         this.getData();
     },
-    fillingModal: function(){}
+    /**
+     * @description 填充数据到表单
+     */
+    fillingModal: function(modal,json){
+        console.log(json);
+        $.ajax({
+            url: this.url + this.pSize +"/"+1,
+            type : 'POST',
+            dataType : 'json',
+            data : json,
+            success : function(data){
+                var item = data["list"][0];
+                var jsonAttrName = (function(attr) {
+                    var tmp = new Array();
+                    for ( var key in attr) {
+                        tmp.push(key);
+                    }
+                    return tmp;
+                })(item);
+                for(var key in jsonAttrName){
+                    var attr = jsonAttrName[key];
+                    var input = modal.find("input[name="+attr+"]");
+                    if(input.attr("type")!="radio"){
+                        input.val(item[attr]);
+                    }else{
+                        item[attr]>0?input.eq(0).attr("checked",1):input.eq(1).attr("checked",1);
+                    }
+                }
+            }
+        }).done(function() {
+            console.log("success");
+        }).fail(function() {
+            console.log("error");
+        }).always(function() {
+            console.log("complete");
+        });
+    },
+    commitSimpleObj: function (action,obj){
+        $.ajax({
+            url:dataProcessUtil.url+action,
+            type : 'POST',
+            dataType : 'json',
+            data : obj,
+            success : function(data) {
+                $(".uk-modal").hide();
+                if(data["isSuccess"]==true)
+                    $.UIkit.notify({
+                        message : "<i class='uk-icon-check'></i> 执行成功",
+                        timeout : 2000,
+                        pos     : 'top-center',
+                        status : 'success'
+                    });
+                else
+                    $.UIkit.notify({
+                        message : "<i class='uk-icon-close'></i> 执行失败",
+                        timeout : 2000,
+                        pos     : 'top-center',
+                        status : 'danger'
+                    })
+            }
+        }).done(function() {
+            console.log("success");
+        }).fail(function() {
+            alert("error");
+        }).always(function() {
+            console.log("complete");
+        });
+    },
+    change:function(fun){
+        if(fun!=this.defaultDisplay&&(fun==this.fillingDataWith_UK_Panel||fun==this.fillingDataWithTable)){
+            this.defaultDisplay=fun;
+            this.defaultDisplay();
+        }
+    }
+
 };
 

@@ -6,11 +6,11 @@ import org.apache.ibatis.annotations.Delete;
 import org.sl.shop.model.SalesOrderItem;
 
 public interface SalesOrderItemMapper {
-	public boolean addSalesOrderItem(SalesOrderItem SalesOrderItem);
+	public int addSalesOrderItem(SalesOrderItem SalesOrderItem);
 
 	public int updateSalesOrderItem(SalesOrderItem SalesOrderItem);
 
-	public boolean deleteSalesOrderItem(SalesOrderItem SalesOrderItem);
+	public int deleteSalesOrderItem(SalesOrderItem SalesOrderItem);
 
 	public List<SalesOrderItem> getSalesOrderItem(SalesOrderItem SalesOrderItem);
 }

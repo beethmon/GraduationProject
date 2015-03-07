@@ -3,6 +3,7 @@ package org.sl.shop.testcase;
 import java.io.IOException;
 import java.io.StringWriter;
 import java.util.List;
+import java.util.Random;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -14,7 +15,6 @@ import org.sl.shop.mapper.RefundMapper;
 import org.sl.shop.mapper.SalesOrderItemMapper;
 import org.sl.shop.mapper.SalesOrderMapper;
 import org.sl.shop.mapper.StaffMapper;
-import org.sl.shop.mapper.StockMapper;
 import org.sl.shop.mapper.SupplierMapper;
 import org.sl.shop.mapper.UserMapper;
 import org.sl.shop.mapper.ViewMapper;
@@ -26,7 +26,6 @@ import org.sl.shop.model.SalesOrder;
 import org.sl.shop.model.SalesOrderItem;
 import org.sl.shop.model.SalesView;
 import org.sl.shop.model.Staff;
-import org.sl.shop.model.Stock;
 import org.sl.shop.model.Supplier;
 import org.sl.shop.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,8 +55,6 @@ public class QueryTest {
 	@Autowired
 	RefundMapper rdMapper;
 	@Autowired
-	StockMapper skMapper;
-	@Autowired
 	StaffMapper sfMapper;
 	@Autowired
 	UserMapper uMapper;
@@ -70,7 +67,7 @@ public class QueryTest {
 		System.out.println("CommodityMapper");
 		List<Commodity> list = this.cMapper.getCommodity(null);
 		if (list.size() > 0) {
-			System.out.println(beanToJson(list.get(0)));
+			System.out.println(beanToJson(list));
 		} else {
 			System.out.println("is null");
 		}
@@ -162,20 +159,6 @@ public class QueryTest {
 	}
 
 	@Test
-	public void testStock() {
-		System.out.println("===========================\n");
-		System.out.println("StockMapper");
-		List<Stock> list = this.skMapper.getStock(null);
-		if (list.size() > 0) {
-			System.out.println(beanToJson(list.get(0)));
-		} else {
-			System.out.println("is null");
-		}
-		System.out.println();
-		System.out.println("\n===========================");
-	}
-
-	@Test
 	public void testStaff() {
 		System.out.println("===========================\n");
 		System.out.println("StaffMapper");
@@ -217,6 +200,19 @@ public class QueryTest {
 		System.out.println("\n===========================");
 	}
 
+    @Test
+    public void testAdd(){
+        Commodity comm = new Commodity();
+        String name = "可口可乐";
+        comm.setCname(name);
+        comm.setSales_price(3);
+        Random random = new Random(name.hashCode());
+        comm.setCcodes(String.valueOf((long)(random.nextDouble()*10000000000000L)));
+        comm.setState(1);
+//        int i = this.cMapper.addCommodity(comm);
+//        System.out.println("test:"+ i);
+        System.out.println(comm);
+    }
 	// ///////////////////////////////////////////////////////////
 
 	public static String beanToJson(Object obj) {

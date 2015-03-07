@@ -13,10 +13,9 @@
 		commodity.path,
 		commodity.state,
 		commodity.ccodes,
-		stock.num
+        commodity.num
 		FROM
 		commodity
-		INNER JOIN stock ON stock.coid = commodity.cid
 		<where>
 			<if test="cid != null and cid != 0">
 				commodity.cid=#{cid}
@@ -25,8 +24,9 @@
 				AND commodity.state=#{state}
 			</if>
 			<if test="cname != null and cname != ''">
-				AND commodity.cname LIKE CONCAT(CONCAT('%',
+				AND (commodity.cname LIKE CONCAT(CONCAT('%',
 				#{cname}),'%')
+                OR commodity.ccodes = #{cname})
 			</if>
 			<if test="ccodes != null and ccodes != ''">
 				AND commodity.ccodes = #{ccodes}
@@ -39,9 +39,12 @@
 	<insert id="addCommodity" parameterType="Commodity">
 		INSERT INTO
 		commodity
-		(cname,sales_price,about,path,state,ccodes)
+		(cname,sales_price,about,path,state,ccodes,num)
 		VALUES
-		(#{cname},#{sales_price},#{about},#{path},#{state},#{ccodes})
+		(#{cname},#{sales_price},#{about},#{path},#{state},#{ccodes},#{num})
+		<selectKey resultType="Integer" keyProperty="cid">
+            SELECT LAST_INSERT_ID();
+        </selectKey>
 	</insert>
 
 
@@ -66,6 +69,9 @@
 			<if test="ccodes !=null and ccodes != ''">
 				ccodes = #{ccodes}
 			</if>
+            <if test="num > 0">
+                num = #{num}
+            </if>
 		</set>
 		WHERE cid=#{cid}
 	</update>

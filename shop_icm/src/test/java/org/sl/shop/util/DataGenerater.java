@@ -1,10 +1,14 @@
 package org.sl.shop.util;
 
-import java.util.Random;
-import java.util.Set;
-import java.util.TreeSet;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
+import org.apache.commons.lang.RandomStringUtils;
 import org.sl.shop.model.Commodity;
+import org.sl.shop.model.SalesOrder;
+import org.sl.shop.model.SalesOrderItem;
+import org.sl.shop.service.CommodityService;
 
 public class DataGenerater {
 	// 食物组合元素
@@ -18,11 +22,8 @@ public class DataGenerater {
 			"(菠萝味)", "(芒果味)", "(哈密瓜味)" };
 
 	private Random rand;
+    private List<Commodity> list;
 
-	public DataGenerater() {
-		this.rand = new Random();
-
-	}
 
 	public Set<String> generate(String[] pre, String[] context, String[] suf,
 			int num) {
@@ -62,8 +63,32 @@ public class DataGenerater {
 		long ccodes = (long) (10000000000000L * rd.nextDouble());
 		c.setCcodes(String.format("%013d", ccodes));
 		c.setState(Commodity.ACTIVE);
+        int num = (int)(rand.nextDouble()*500+50);
+        c.setNum(num);
 		// System.out.println(c);
 		return c;
 	}
 
+    public SalesOrder genrateSalesOrder(CommodityService cs){
+        Random rd = new Random();
+        SalesOrder s = new SalesOrder();
+        List<SalesOrderItem> items = new ArrayList<SalesOrderItem>();
+        //随机bno
+        s.setBno(RandomStringUtils.randomAlphanumeric(10));
+        if(this.list==null)
+            this.list = new ArrayList<Commodity>();
+        if(this.list.isEmpty())
+            this.list = cs.getCommodity(null);
+        int cNum = list.size();
+        int itemNum = rd.nextInt(10)+2;
+        for (int i = 0; i < itemNum; i++) {
+            Commodity c = list.get(rd.nextInt(cNum));
+            SalesOrderItem soi = new SalesOrderItem();
+            soi.setComm(c);
+            soi.setNum(rd.nextInt(itemNum)+1);
+            items.add(soi);
+        }
+        s.setItmes(items);
+        return s;
+    }
 }

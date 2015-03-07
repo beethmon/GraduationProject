@@ -6,11 +6,11 @@ import org.sl.shop.model.Commodity;
 
 public interface CommodityMapper {
 	// insert update remove
-	public boolean addCommodity(Commodity comm);
+	public int addCommodity(Commodity comm);
 
 	public int updateCommodity(Commodity comm);
 
-	public boolean deleteCommodity(Commodity comm);
+	public int deleteCommodity(Commodity comm);
 
 	// query
 	/**
